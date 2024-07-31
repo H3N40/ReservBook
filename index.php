@@ -7,5 +7,6 @@
 </head>
 <body>
     prueba
-</body>
+    prueba 2
+<</body>
 </html>
