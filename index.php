@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doc</title>
+    <title>Docts</title>
 </head>
 <body>
-    Hola Elkinzaso como andas sapoperroo
+    Hola juan como andas sapoperroo
 <</body>
 </html>
