@@ -12,9 +12,23 @@
 
    <div id="paypal-button-container"></div>
 
-
     <script>
-       paypal.Buttons().render('#paypal-button-container')
+       paypal.Buttons({
+        style:{
+            color: 'blue',
+            shape: 'pill',
+            label: 'pay'
+        },
+        createOrder: function(data, actions){
+             return actions.order.create({
+                purchase_units: [{
+                    amount:{
+                        value: 100
+                    }
+                }]
+             });
+        }
+       }).render('#paypal-button-container')
    </script>
 
 </body>
