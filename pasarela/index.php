@@ -27,6 +27,17 @@
                     }
                 }]
              });
+        },
+
+        onApprove: function(data, actions){
+            actions.order.capture().then(function (detalles){
+                window.location.href="completado.html"
+            });
+        },
+
+        onCancel: function(data){
+            alert("Pago Cancelado");
+            console.log(data);
         }
        }).render('#paypal-button-container')
    </script>
