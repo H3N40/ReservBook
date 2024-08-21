@@ -84,22 +84,21 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
             <?php
 
             $id = $row['id'];
-            $imagen = "imagenes/Juegos/" . $id . "/gta5.jpg";
+            $imagen = "imagenes/Juegos/" . $id . "/imagen.jpg";
 
             if(!file_exists($imagen)){
-              $imagen = "imagenes/no-photo/no-photo.jpg"
+              $imagen = "imagenes/Juegos/no-photoo.jpg";
             }
-
             ?>
-            <img src="imagenes/Juegos/GTA 5/gta5.jpg">
+            <img src="<?php echo $imagen; ?>">
             <div class="card-body">
-              <p class="card-title">GTA 5</p>
-              <h5 class="card-text">$16.5 DLS</h5>
+              <p class="card-title"><?php echo $row['nombre']; ?></p>
+              <h5 class="card-text">$ <?php echo number_format($row['precio'], 2, '.', ','); ?></h5>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                 <a href="" class="btn btn-primary">Detalles</a>
+                 <a href="#" class="btn btn-primary">Detalles</a>
                 </div>
-                <a href="" class="btn btn-success">Agregar</a>
+                <a href="#" class="btn btn-success">Agregar</a>
               </div>
             </div>
           </div>
