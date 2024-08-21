@@ -1,3 +1,17 @@
+<?php
+
+
+require 'config/database.php';
+$db = new Database();
+$con = $db->conectar();
+
+$sql = $con->prepare("SELECT id, nombre, precio FROM productos WHERE activos=1");
+$sql->execute();
+$resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,8 +98,8 @@
           <div class="card shadow-sm">
             <img src="imagenes/Juegos/GTA 5/gta5.jpg">
             <div class="card-body">
-              <p class="card-title">GTA 5</p>
-              <h5 class="card-text">$16.5 DLS</h5>
+              <p class="card-title">Red Dead Redemption 2</p>
+              <h5 class="card-text">$27.5 DLS</h5>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                  <a href="" class="btn btn-primary">Detalles</a>
