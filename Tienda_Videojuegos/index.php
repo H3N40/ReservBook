@@ -5,7 +5,7 @@ require 'config/database.php';
 $db = new Database();
 $con = $db->conectar();
 
-$sql = $con->prepare("SELECT id, nombre, precio FROM productos WHERE activos=1");
+$sql = $con->prepare("SELECT id, nombre, precio FROM videojuegos WHERE activo=1");
 $sql->execute();
 $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -78,8 +78,19 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
   <main>
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
+        <?php foreach($resultado as $row) { ?>
+         <div class="col">
           <div class="card shadow-sm">
+            <?php
+
+            $id = $row['id'];
+            $imagen = "imagenes/Juegos/" . $id . "/gta5.jpg";
+
+            if(!file_exists($imagen)){
+              $imagen = "imagenes/no-photo/no-photo.jpg"
+            }
+
+            ?>
             <img src="imagenes/Juegos/GTA 5/gta5.jpg">
             <div class="card-body">
               <p class="card-title">GTA 5</p>
@@ -92,39 +103,10 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="imagenes/Juegos/GTA 5/gta5.jpg">
-            <div class="card-body">
-              <p class="card-title">Red Dead Redemption 2</p>
-              <h5 class="card-text">$27.5 DLS</h5>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                 <a href="" class="btn btn-primary">Detalles</a>
-                </div>
-                <a href="" class="btn btn-success">Agregar</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="imagenes/Juegos/GTA 5/gta5.jpg">
-            <div class="card-body">
-              <p class="card-title">GTA 5</p>
-              <h5 class="card-text">$16.5 DLS</h5>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                 <a href="" class="btn btn-primary">Detalles</a>
-                </div>
-                <a href="" class="btn btn-success">Agregar</a>
-              </div>
-            </div>
-          </div>
-        </div>
+         </div>
+       <?php }?>
+       
+    
       </div>
     </div>
   </main>
