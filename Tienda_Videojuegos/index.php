@@ -1,6 +1,6 @@
 <?php
 
-require 'config/config.php';
+
 require 'config/database.php';
 $db = new Database();
 $con = $db->conectar();
@@ -9,6 +9,7 @@ $sql = $con->prepare("SELECT id, nombre, precio FROM videojuegos WHERE activo=1"
 $sql->execute();
 $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+
 ?>
 
 <!DOCTYPE html>
@@ -16,17 +17,18 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tienda de Videojuegos</title>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link href="css/style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
-  <!-- Barra de Navegacion -->
+
   <header>
     <div class="collapse bg-dark" id="navbarHeader">
       <div class="container">
@@ -46,6 +48,7 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
+
 
     <div class="navbar navbar-dark bg-dark">
       <div class="container">
@@ -75,34 +78,34 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
   <main>
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <?php foreach ($resultado as $row) { ?>
-          <div class="col">
-            <div class="card shadow-sm">
-              <?php
+        <?php foreach($resultado as $row) { ?>
+         <div class="col">
+          <div class="card shadow-sm">
+            <?php
 
-              $id = $row['id'];
-              $imagen = "imagenes/Juegos/" . $id . "/imagen.jpg";
+            $id = $row['id'];
+            $imagen = "imagenes/Juegos/" . $id . "/imagen.jpg";
 
-              if (!file_exists($imagen)) {
-                $imagen = "imagenes/Juegos/no-photoo.jpg";
-              }
-              ?>
-              <img src="<?php echo $imagen; ?>">
-              <div class="card-body">
-                <p class="card-title"><?php echo $row['nombre']; ?></p>
-                <h5 class="card-text">$ <?php echo number_format($row['precio'], 2, '.', ','); ?></h5>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="#" class="btn btn-primary">Detalles</a>
-                  </div>
-                  <a href="#" class="btn btn-success">Agregar</a>
+            if(!file_exists($imagen)){
+              $imagen = "imagenes/Juegos/no-photoo.jpg";
+            }
+            ?>
+            <img src="<?php echo $imagen; ?>">
+            <div class="card-body">
+              <p class="card-title"><?php echo $row['nombre']; ?></p>
+              <h5 class="card-text">$ <?php echo number_format($row['precio'], 2, '.', ','); ?></h5>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                 <a href="#" class="btn btn-primary">Detalles</a>
                 </div>
+                <a href="#" class="btn btn-success">Agregar</a>
               </div>
             </div>
           </div>
-        <?php } ?>
-
-
+         </div>
+       <?php }?>
+       
+    
       </div>
     </div>
   </main>
