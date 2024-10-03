@@ -5,7 +5,7 @@ class database{
 private $hostname = "localhost";
 private $database = "tiendavideojuegos";
 private $username = "root";
-private $password = "1234";
+private $password = "";
 private $charset = "utf8";
 
 function conectar()
