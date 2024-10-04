@@ -82,7 +82,7 @@ if ($id == '' || $token == '') {
         <div class="row">
           <div class="col-sm-8 col-md-7 py-4">
             <h4 class="text-white">Sobre nosotros</h4>
-            <p class="text-muted">Somos un grupo de jóvenes amantes de los videojuegos y de la programación.</p>
+            <p class="text-muted">Somos un grupo de jóvenes amantes de los videojuegoss y de la programación.</p>
           </div>
           <div class="col-sm-4 offset-md-1 py-4">
             <h4 class="text-white">Contacto</h4>
