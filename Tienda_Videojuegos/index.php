@@ -10,6 +10,7 @@ $sql = $con->prepare("SELECT id, nombre, precio FROM videojuegos WHERE activo=1"
 $sql->execute();
 $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+print_r($_SESSION);
 
 ?>
 
@@ -63,7 +64,9 @@ $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
           </li>
 
         </ul>
-        <a href="carrito.php" class="btn btn-primary me-2">Carrito</a>
+          <a href="carrito.php" class="btn btn-primary">
+              Carrito <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart;  ?></span>
+          </a>
 
         <!-- Botón de Desplegar más (lo marco por que me dio problemas, y puede que interfiera un un futuro)-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
