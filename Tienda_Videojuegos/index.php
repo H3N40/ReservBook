@@ -64,6 +64,26 @@ if (isset($_SESSION['carrito'])) {
             <a href="#" class="navbar-brand d-flex align-items-center">
                 <strong>Tienda Videojuegos</strong>
             </a>
+            <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Videojuegos</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <!-- Contenido de la tienda -->
+    <h1>Bienvenido a la Tienda de Videojuegos</h1>
+    
+    <!-- Botón para el login de administrador -->
+    <a href="admin/login.php" class="admin-btn">Administrar Videojuegos</a>
+
+    
+    <!-- Otros contenidos y elementos existentes -->
+</body>
+</html>
+
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
