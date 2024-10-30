@@ -1,31 +1,13 @@
 <?php
+$host = 'localhost';
+$dbname = 'tiendavideojuegos';  // Cambia esto por el nombre de tu base de datos
+$username = 'root';  // Usualmente es 'root' en XAMPP
+$password = '';  // Por defecto, XAMPP no tiene contraseña para MySQL
 
-class database{
-
-private $hostname = "localhost";
-private $database = "tiendavideojuegos";
-private $username = "root";
-private $password = "";
-private $charset = "utf8";
-
-function conectar()
-{
-    try{
-    $conexion = "mysql:host=" . $this->hostname . "; dbname=" . $this->database . "; charset" . $this->charset;
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ];
-
-    $pdo = new PDO($conexion, $this->username, $this->password, $options);
-
-    return $pdo;
-} catch(PDOException $e){
-   echo 'Error conexion: ' . $e->getMessage();
-   exit;
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Error en la conexión: " . $e->getMessage());
 }
-}
-
-}
-
 ?>
