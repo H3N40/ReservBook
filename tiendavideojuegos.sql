@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-10-2024 a las 23:30:15
+-- Tiempo de generación: 30-10-2024 a las 20:59:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,17 +34,18 @@ CREATE TABLE `videojuegos` (
   `precio` decimal(10,2) NOT NULL,
   `descuento` tinyint(3) NOT NULL DEFAULT 0,
   `id_categoria` int(11) NOT NULL,
-  `activo` int(11) NOT NULL
+  `activo` int(11) NOT NULL,
+  `stock` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `videojuegos`
 --
 
-INSERT INTO `videojuegos` (`id`, `Nombre`, `descripcion`, `precio`, `descuento`, `id_categoria`, `activo`) VALUES
-(1, 'GTA 5', 'GTA 5', 16.55, 10, 1, 1),
-(2, 'Red Dead Redemption 2', 'Red Dead Redemption 2Red Dead Redemption 2', 27.50, 0, 1, 1),
-(3, 'Minecraft', 'Minecraft', 22.00, 0, 11, 1);
+INSERT INTO `videojuegos` (`id`, `Nombre`, `descripcion`, `precio`, `descuento`, `id_categoria`, `activo`, `stock`) VALUES
+(1, 'GTA 5', 'GTA 5', 16.55, 10, 1, 1, 1),
+(2, 'Red Dead Redemption 2', 'Red Dead Redemption 2Red Dead Redemption 2', 27.50, 0, 1, 1, 3),
+(3, 'Minecraft', 'Minecraft', 22.00, 40, 11, 1, 1);
 
 --
 -- Índices para tablas volcadas
