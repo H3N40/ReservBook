@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+session_start(); // Asegúrate de iniciar la sesión antes de acceder a las variables de sesión.
 
 require_once './config.php';
 
@@ -91,5 +91,41 @@ class Auth {
 
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
+    $auth = new Auth();
+    $result = $auth->authenticate($username, $password);
+
+    if ($result === true) {
+        // Autenticación exitosa
+        $response = array(
+            'status' => 'success',
+            'user_id' => $_SESSION['user_id'],
+            'role_id' => $_SESSION['role_id'],
+            'nombre' => $_SESSION['nombre'],
+            'apellidos' => $_SESSION['apellidos'],
+            'email' => $_SESSION['email'],
+            'total_users' => $_SESSION['total_users']
+        );
+
+        
+        echo json_encode($response);
+    } elseif ($result === 'inactive') {
+        // Usuario inactivo
+        $response = array(
+            'status' => 'error',
+            'message' => 'El usuario está inactivo'
+        );
+        echo json_encode($response);
+    } elseif ($result === 'invalid') {
+        // Credenciales inválidas
+        $response = array(
+            'status' => 'error',
+            'message' => 'Verifique la información ingresada'
+        );
+        echo json_encode($response);
+    }
+}
 ?>
