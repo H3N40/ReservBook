@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    padding: 10px 0;
+}
+
+.btn-login, .btn-register {
+    border-color: #fff;
+    color: #fff;
+}
+
+.btn-login:hover, .btn-register:hover {
+    background-color: #fff;
+    color: #0069A3;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .d-flex {
+        width: 100%;
+    }
+
+    .btn-login, .btn-register {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
