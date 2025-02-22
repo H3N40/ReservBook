@@ -10,16 +10,20 @@
 
 <body>
 
-<header class="py-1" style="background-color: #0069A3;">
+<header class="py-2.4" style="background-color: #0069A3;">
     <div class="container d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Busca tu libro" aria-label="Search">
-            </form>
-        </div>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2 search" type="search" placeholder="Search book" aria-label="Search">
+                    <button class="btn btn-outline-success btn-search" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
         <div>
             <button class="btn btn-outline-light me-2 btn-login" type="button">Login
-            <link href="../views/login.php"   >
+                <link href="views/login.html">
             </button>
 
             <button class="btn btn-outline-light btn-register" type="button">Register</button>

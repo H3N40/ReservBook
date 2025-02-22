@@ -6,6 +6,23 @@ header {
     padding: 10px 0;
 }
 
+.search {
+    width: 600px;
+}
+
+
+.btn-search {
+    border-color: #fff;
+    color: #fff;
+}
+
+
+.btn-search:hover {
+    background-color: #fff;
+    color: #0069A3;
+}
+
+
 .btn-login, .btn-register {
     border-color: #fff;
     color: #fff;
