@@ -2,6 +2,10 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.back-color{
+    background-color: #0069A3;
+}
+
 header {
     padding: 10px 0;
 }
