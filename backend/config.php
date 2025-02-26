@@ -7,7 +7,7 @@ private $host = "localhost";
 private $username = "root";
 private $password = "";
 
-private $dbname = "ensurance";
+private $dbname = "utc";
 
 public function getConnection(){
 

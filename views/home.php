@@ -1,3 +1,19 @@
+<?php
+session_start(); 
+
+if (isset( $_SESSION['logged_in'] ) &&  $_SESSION['logged_in'] === true ) {
+       // El usuario está autenticado
+       $userId = $_SESSION['user_id'];
+       $roleId = $_SESSION['role_id'];
+       $nombre = $_SESSION['nombre'];
+}  else {
+
+
+    header("Location: ../index.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,10 +39,11 @@
             </div>
         </nav>
 
-        <div>
-            <a class="btn btn-outline-light me-2 btn-login" href="./views/login.html">Login</a>
-            <a class="btn btn-outline-light me-2 btn-register" href="./views/register.html">Register</a>
-        </div>
+        <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-danger"> <a href=" ../backend/logout.php">Logouth</a> </button>
+                    
+                </form>
 
     </div>
 </header>
