@@ -1,19 +1,19 @@
 <?php
-session_start(); 
+session_start();
 
-if (isset( $_SESSION['logged_in'] ) &&  $_SESSION['logged_in'] === true ) {
-       // El usuario está autenticado
-       $userId = $_SESSION['user_id'];
-       $roleId = $_SESSION['role_id'];
-       $nombre = $_SESSION['nombre'];
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    // El usuario está autenticado
+    $userId = $_SESSION['user_id'];
+    $roleId = $_SESSION['fk_role_id'];
+    $nombre = $_SESSION['nombre'];
 
-        if ($roleId != 1) {
-            // El usuario no tiene el rol 1, redirige a la página de dashboard
-            header("Location: ./index.php"); // Cambia "dashboard.php" al nombre de tu página de dashboard
-            exit();
-        }
+    if ($roleId != 1) {
+        // El usuario no tiene el rol 1, redirige a la página de dashboard
+        header("Location: ./home.php"); // Cambia "dashboard.php" al nombre de tu página de dashboard
+        exit();
+    }
 
-}  else {
+} else {
 
     header("Location: ../index.html");
     exit();
@@ -34,23 +34,12 @@ if (isset( $_SESSION['logged_in'] ) &&  $_SESSION['logged_in'] === true ) {
 
 <body>
 
-<header class="py-2.4 back-color">
-    <div class="container d-flex justify-content-between align-items-center">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-
-            </div>
-        </nav>
 
 
 
     </div>
-</header>
+    </header>
 </body>
 
 
