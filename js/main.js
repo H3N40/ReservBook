@@ -26,17 +26,17 @@ function loginUser(username, password) {
 
     
     $.ajax({
-      url: "./backend/login.php",
+      url: "../backend/login.php",
       method: "POST",
       data: { username: username, password: password },
       dataType: "json",
       success: function (response) {
-        console.log("REspuesta nuevo user");
+        console.log("Respuesta nuevo user");
         console.log(response);
   
         if (response.status === "success") {
           //alertify.success("Login successful");
-          window.location.href = "./views/index.php";
+          window.location.href = "../views/home.php";
         } else if (response.status === "error") {
           if (response.message === "El usuario está inactivo") {
             // Usuario inactivo
