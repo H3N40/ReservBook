@@ -4,7 +4,7 @@ session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     // El usuario está autenticado
     $userId = $_SESSION['user_id'];
-    $roleId = $_SESSION['fk_role_id'];
+    $roleId = $_SESSION['role_id'];
     $nombre = $_SESSION['nombre'];
 
     if ($roleId != 1) {
@@ -15,7 +15,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 } else {
 
-    header("Location: ../index.html");
+    header("Location: ../views/login.html");
     exit();
 }
 
@@ -38,8 +38,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 
 
-    </div>
-    </header>
+    
 </body>
 
 
