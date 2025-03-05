@@ -49,6 +49,14 @@ class Auth
                 $_SESSION['identification_number'] = $row['identification_number'];
                 $_SESSION['phone'] = $row['phone'];
 
+
+
+
+                print_r($_SESSION);
+                
+
+
+
                 return true; // Autenticación exitosa
             } else {
                 return 'invalid'; // Credenciales inválidas
@@ -64,6 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+
+    
+    print_r($_POST);
+
+
+
     $auth = new Auth();
     $result = $auth->authenticate($username, $password);
 
@@ -72,10 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $response = array(
             'status' => 'success',
             'user_id' => $_SESSION['user_id'],
-            'fk_role_id' => $_SESSION['fk_role_id'], 
-            'full_name' => $_SESSION['full_name'], 
+            'fk_role_id' => $_SESSION['fk_role_id'],
+            'full_name' => $_SESSION['full_name'],
             'email' => $_SESSION['email'],
-            'identification_number' => $_SESSION['identification_number'], 
+            'identification_number' => $_SESSION['identification_number'],
             'phone' => $_SESSION['phone'],
             'password' => $_SESSION['password']
         );

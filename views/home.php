@@ -8,11 +8,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     $full_name = $_SESSION['full_name'];
 } else {
 
-
-    header("Location: /index.html");
+    header("Location: ../index.html");
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
