@@ -1,28 +1,29 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - ReservBook</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 <div class="main">
     <div class="box effect7">
-        <div class="header">Bienvenido</div>
-        <div class="secondTitle"><h2>ReservBook</h2></div>
-
+        <div class="header">LOGIN</div>
         <form id="loginForm">
-            <div class="form-group">
-                <input type="text" placeholder="Username" name="username" required>
+            <div class="input-container">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="E-mail" name="username" required>
             </div>
-            <div class="form-group">
+            <div class="input-container">
+                <i class="fas fa-lock"></i>
                 <input type="password" placeholder="Password" name="password" required>
             </div>
-            <button type="submit" class="butt">Login</button>
-            <span class="signup">Don't have an account?&nbsp;<a href="#" class="link">Sign up</a></span>
+            <button type="submit" class="butt btn-login">LOGIN</button>
+            <span class="signup">Don't have an account?&nbsp;<a href="./register.html" class="link">Sign up</a></span>
         </form>
     </div>
 </div>

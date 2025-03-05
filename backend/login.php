@@ -40,51 +40,16 @@ class Auth
 
             if (password_verify($password, $hashedPassword)) {
                 // La contraseña proporcionada coincide con la contraseña almacenada
+                $_SESSION['logged_in'] = true;
+                $_SESSION['user_id'] = $row['user_id'];
+                $_SESSION['fk_role_id'] = $row['fk_role_id'];
+                $_SESSION['full_name'] = $row['full_name'];
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['password'] = $row['password'];
+                $_SESSION['identification_number'] = $row['identification_number'];
+                $_SESSION['phone'] = $row['phone'];
 
-                if ($row['status'] === 'Activo') {
-                    $_SESSION['logged_in'] = true;
-                    $_SESSION['user_id'] = $row['user_id'];
-                    $_SESSION['role_id'] = $row['fk_role_id'];
-                    $_SESSION['nombre'] = $row['full_name'];
-                    $_SESSION['apellidos'] = $row['last_name'];
-                    $_SESSION['email'] = $row['email'];
-                    $_SESSION['company_id'] = $row['fk_company_id'];
-                    $_SESSION['fk_departamento_id'] = $row['fk_departamento_id'];
-
-
-
-
-                    $status = "Active now";
-                    $user_id = $row['user_id'];
-                    $sql2 = "UPDATE users SET statusChat =  :statusChat  WHERE user_id = :user_id";
-                    $sql2 = $this->db->prepare($sql2);
-                    $sql2->bindParam(':statusChat', $status, PDO::PARAM_STR);
-                    $sql2->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-                    $sql2->execute();
-                    $_SESSION['statusChat'] = $status;
-
-
-
-                    $compañia = $row['fk_company_id'];
-
-
-                    // Ahora, realiza una consulta para obtener la cantidad total de usuarios
-                    $sql = "SELECT COUNT(*) AS total_users FROM users WHERE fk_company_id= $compañia";
-                    $stmt = $this->db->prepare($sql);
-                    $stmt->execute();
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    // Agrega el total de usuarios a la sesión
-                    $_SESSION['total_users'] = $row['total_users'];
-
-
-
-
-
-                    return true; // Autenticación exitosa
-                } else {
-                    return 'inactive'; // Usuario inactivo
-                }
+                return true; // Autenticación exitosa
             } else {
                 return 'invalid'; // Credenciales inválidas
             }
@@ -92,8 +57,8 @@ class Auth
             return 'invalid'; // Usuario no encontrado
         }
     }
-
 }
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
@@ -107,22 +72,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $response = array(
             'status' => 'success',
             'user_id' => $_SESSION['user_id'],
-            'role_id' => $_SESSION['role_id'],
-            'nombre' => $_SESSION['nombre'],
-            'apellidos' => $_SESSION['apellidos'],
+            'fk_role_id' => $_SESSION['fk_role_id'], 
+            'full_name' => $_SESSION['full_name'], 
             'email' => $_SESSION['email'],
-            'total_users' => $_SESSION['total_users']
+            'identification_number' => $_SESSION['identification_number'], 
+            'phone' => $_SESSION['phone'],
+            'password' => $_SESSION['password']
         );
 
 
-        echo json_encode($response);
-    } elseif ($result === 'inactive') {
-        // Usuario inactivo
-        $response = array(
-            'status' => 'error',
-            'message' => 'El usuario está inactivo'
-        );
-        echo json_encode($response);
     } elseif ($result === 'invalid') {
         // Credenciales inválidas
         $response = array(
