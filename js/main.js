@@ -1,21 +1,14 @@
 $(document).ready(function () {
-
   $("#loginForm").submit(function (event) {
     event.preventDefault();
 
-    // Obtener los valores de los campos de entrada
-    var username = $.trim($('input[name="username"]').val()); // Eliminar espacios en blanco al inicio y al final
+    var username = $.trim($('input[name="username"]').val());
     var password = $.trim($('input[name="password"]').val());
-    //console.log("console trim", "user", username, " pas", password);
 
-
-    // Sanitizar datos antes de enviarlos (opcional, solo como precaución adicional)
     password = encodeURIComponent(password);
-
-    loginUser(username, password)
+    loginUser(username, password);
   });
 });
-
 
 function loginUser(username, password) {
   $.ajax({
@@ -24,19 +17,20 @@ function loginUser(username, password) {
     data: { username: username, password: password },
     dataType: "json",
     success: function (response) {
-      console.log("Respuesta nuevo user");
-      console.log(response);
-
       if (response.status === "success") {
-        //alertify.success("Login successful");
         window.location.href = "../views/home.php";
-      } else {
-        // Credenciales inválidas u otro error
-        console.log("Error: " + response.message);
+      } else if (response.status === "error") {
         alertify.error(response.message);
         $('input[name="username"]').val("");
         $('input[name="password"]').val("");
+      } else {
+        console.log("Otro error");
+        $("#result").html("<p>Error en la llamada AJAX</p>");
       }
     },
   });
 }
+
+
+
+

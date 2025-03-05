@@ -4,10 +4,10 @@ session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     // El usuario está autenticado
     $user_id = $_SESSION['user_id'];
-    $fk_role_id = $_SESSION['fk_role_id'];
-    $full_name = $_SESSION['full_name'];
+    $role_id = $_SESSION['role_id']; 
+    $nombre = $_SESSION['nombre']; 
 
-    if ($roleId != 1) {
+    if ($role_id != 1) {
         // El usuario no tiene el rol 1, redirige a la página de dashboard
         header("Location: ./home.php"); // Cambia "dashboard.php" al nombre de tu página de dashboard
         exit();

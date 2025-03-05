@@ -4,60 +4,40 @@ session_start(); // Asegúrate de iniciar la sesión antes de acceder a las vari
 
 require_once './config.php';
 
-
-class Auth
-{
-
+class Auth {
     private $db;
 
-    public function __construct()
-    {
-
+    public function __construct() {
         $dbConfig = new DbConfig();
         $this->db = $dbConfig->getConnection();
     }
 
-
-    public function getDb()
-    {
+    public function getDb() {
         return $this->db;
     }
 
-
-    public function authenticate($username, $password)
-    {
-
+    public function authenticate($username, $password) {
         $sql = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':email', $username);
         $stmt->execute();
 
-
         if ($stmt->rowCount() == 1) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            $hashedPassword = $row['password']; // Obtén la contraseña hasheada almacenada en la base de datos
+            $hashedPassword = $row['password'];
 
             if (password_verify($password, $hashedPassword)) {
-                // La contraseña proporcionada coincide con la contraseña almacenada
-                $_SESSION['logged_in'] = true;
-                $_SESSION['user_id'] = $row['user_id'];
-                $_SESSION['fk_role_id'] = $row['fk_role_id'];
-                $_SESSION['full_name'] = $row['full_name'];
-                $_SESSION['email'] = $row['email'];
-                $_SESSION['password'] = $row['password'];
-                $_SESSION['identification_number'] = $row['identification_number'];
-                $_SESSION['phone'] = $row['phone'];
+                if ($row['status'] === 'Activo') {
+                    $_SESSION['logged_in'] = true;
+                    $_SESSION['user_id'] = $row['user_id'];
+                    $_SESSION['role_id'] = $row['fk_role_id'];
+                    $_SESSION['nombre'] = $row['full_name'];
+                    $_SESSION['email'] = $row['email'];
 
-
-
-
-                print_r($_SESSION);
-                
-
-
-
-                return true; // Autenticación exitosa
+                    return true; // Autenticación exitosa
+                } else {
+                    return 'inactive'; // Usuario inactivo
+                }
             } else {
                 return 'invalid'; // Credenciales inválidas
             }
@@ -67,36 +47,29 @@ class Auth
     }
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
-
-
-    
-    print_r($_POST);
-
-
 
     $auth = new Auth();
     $result = $auth->authenticate($username, $password);
 
     if ($result === true) {
-        // Autenticación exitosa
         $response = array(
             'status' => 'success',
             'user_id' => $_SESSION['user_id'],
-            'fk_role_id' => $_SESSION['fk_role_id'],
-            'full_name' => $_SESSION['full_name'],
-            'email' => $_SESSION['email'],
-            'identification_number' => $_SESSION['identification_number'],
-            'phone' => $_SESSION['phone'],
-            'password' => $_SESSION['password']
+            'role_id' => $_SESSION['role_id'],
+            'nombre' => $_SESSION['nombre'],
+            'email' => $_SESSION['email']
         );
-
-
+        echo json_encode($response);
+    } elseif ($result === 'inactive') {
+        $response = array(
+            'status' => 'error',
+            'message' => 'El usuario está inactivo'
+        );
+        echo json_encode($response);
     } elseif ($result === 'invalid') {
-        // Credenciales inválidas
         $response = array(
             'status' => 'error',
             'message' => 'Verifique la información ingresada'
