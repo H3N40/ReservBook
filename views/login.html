@@ -10,25 +10,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<div class="main">
-    <div class="box effect7">
-        <div class="header">LOGIN</div>
-        <form id="loginForm">
-            <div class="input-container">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="E-mail" name="username" required>
-            </div>
-            <div class="input-container">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Password" name="password" required>
-            </div>
-            <button type="submit" class="butt btn-login">LOGIN</button>
-            <span class="signup">Don't have an account?&nbsp;<a href="./register.html" class="link">Sign up</a></span>
-        </form>
-    </div>
-</div>
+    <video autoplay muted loop class="video-background">
+        <source src="../assets/video-fondo.mp4" type="video/mp4">
+        Tu navegador no soporta el formato de video.
+    </video>
 
-<script src="../js/jquery-3.7.1.min.js"></script>
-<script src="../js/main.js"></script>
+    <div class="container">
+        <div class="card p-4 shadow-lg rounded">
+            <h2 class="text-center mb-4 fw-bold">ReservBook</h2>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label class="form-label">Usuario</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        <input type="text" class="form-control" placeholder="Ingrese su usuario" name="username" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        <input type="password" class="form-control" placeholder="Ingrese su contraseña" name="password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+                <p class="text-center mt-3">¿No tienes una cuenta? <a href="./register.html" class="link">Regístrate</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>
