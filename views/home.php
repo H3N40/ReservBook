@@ -30,9 +30,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
     <header class="py-3 back-color">
         <div class="container d-flex justify-content-between align-items-center">
-            <a href="#" class="navbar-brand">
-                <img src="assets/logo.png" alt="ReservBook Logo" width="150"> <!--      logo     -->
-            </a>
+        <a href="#" class="navbar-brand">
+            <img class="logo" src="#" alt="ReservBook Logo" >
+        </a>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <form class="d-flex" role="search">
@@ -45,8 +45,14 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </nav>
 
 
+            
+
             <form class="d-flex">
                 <button class="btn btn-outline-danger"> <a href=" ../backend/logout.php">Logouth</a> </button>
+            </form>
+
+            <form class="d-flex">
+                <button class="btn btn-outline-danger"> <a href="../views/admin.php">Admin</a> </button>
             </form>
         </div>
     </header>
@@ -58,7 +64,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     </main>
 
     <footer class="back-color text-white text-center py-3 mt-5">
-        <p>&copy; <!-- AÑO Y QUIENES LO DESARROLLARON --></p>
+        <p>&copy; 2025 - Jhon ELkin - Juan Jose - JJ</p>
     </footer>
 
 </body>
