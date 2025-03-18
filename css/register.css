@@ -1,13 +1,24 @@
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
 body {
-    background: linear-gradient(135deg, #4365c4, #0f479b);
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background: none;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .container {
@@ -22,10 +33,10 @@ body {
 .card {
     width: 100%;
     max-width: 400px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.85);
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .input-group-text {
@@ -52,5 +63,126 @@ body {
 }
 
 .link:hover {
+    text-decoration:underline;
+}
+
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+}
+
+
+.box {
+    border-radius: 15px;
+    height: auto;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.34);
+    display: flex;
+    color: #000000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: #0f479b;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.input-container i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #0f479b;
+}
+
+input {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: 45px;
+    margin-top: 10px;
+    padding-left: 40px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #0f479b;
+    box-shadow: 0 0 5px rgba(0, 105, 163, 0.5);
+}
+
+.butt {
+    height: 45px;
+    width: 100%;
+    background: rgba(228, 213, 183, 0.82);
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 20px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.butt:hover {
+    background: linear-gradient(135deg, #d8c94c, #EFE255);
+    transform: translateY(-2px);
+}
+
+.signup {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.link {
+    color: #0f479b;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link:hover {
     text-decoration: underline;
+}
+
+@media only screen and (max-width: 433px) {
+    .box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    input {
+        width: 100%;
+    }
 }

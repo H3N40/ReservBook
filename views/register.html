@@ -10,64 +10,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
+<video autoplay muted loop class="video-background">
+    <source src="../assets/background-video.mp4" type="video/mp4">
+</video>
 
-    <video autoplay muted loop class="video-background">
-        <source src="../assets/video-fondo.mp4" type="video/mp4"> 
-    </video>
-    
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card p-4 shadow-lg rounded">
-            <h2 class="text-center mb-4 fw-bold">ReservBook</h2>
-            <form id="registerForm">
-                <div class="mb-3">
-                    <label class="form-label">Nombre completo</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        <input type="text" class="form-control" placeholder="Ingrese su nombre completo" name="fullname" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Correo electrónico</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                        <input type="email" class="form-control" placeholder="Ingrese su correo" name="email" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Contraseña</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                        <input type="password" class="form-control" placeholder="Ingrese su contraseña" name="password" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Número de identificación</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa fa-id-card"></i></span>
-                        <input type="text" class="form-control" placeholder="Ingrese su identificación" name="identification" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Dirección</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa fa-map-marker-alt"></i></span>
-                        <input type="text" class="form-control" placeholder="Ingrese su dirección" name="address" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Teléfono</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                        <input type="tel" class="form-control" placeholder="Ingrese su teléfono" name="phone" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-                <p class="text-center mt-3">¿Ya tienes cuenta? <a href="login.html" class="link">Inicia sesión</a></p>
-            </form>
-        </div>
+
+<div class="container">
+    <div class="box effect7">
+        <div class="header">REGISTER</div>
+        <form id="registerForm">
+
+            <div class="input-container">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Ingrese su nombre completo" name="username" required>
+            </div>
+
+            <div class="input-container">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Ingrese su correo" name="email" required>
+            </div>
+
+            <div class="input-container">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Ingrese su contraseña" name="password" required>
+            </div>
+
+            <div class="input-container">
+                <i class="fas fa-id-card"></i>
+                <input type="text" placeholder="Ingrese su identificación" name="identification" required>
+            </div>
+
+            <div class="input-container">
+                <i class="fas fa-phone"></i>
+                <input type="tel" placeholder="Ingrese su teléfono" name="phone" required>
+            </div>
+
+            <button type="submit" class="butt btn-register">Register</button>
+
+            <span class="signup">¿Ya tienes cuenta? <a href="login.html" class="link">Inicia sesión</a></span>
+        </form>
     </div>
+</div>
 
-    <script src="./js/jquery-3.7.1.min.js"></script>
-    <script src="./js/main.js"></script>
+
+<script src="./js/jquery-3.7.1.min.js"></script>
+<script src="./js/main.js"></script>
 </body>
 </html>
