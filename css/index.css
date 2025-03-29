@@ -144,3 +144,32 @@ footer {
 .logo {
     width: 50px;
 }
+
+
+.container-txt{
+    color: #000000;
+}
+
+
+
+
+
+.banner {
+    background-color: #f7e04b; 
+    align-items: center;
+  }
+  
+  .text-box {
+    padding-left: 50px;
+  }
+  
+  .text-box h1 {
+    font-size: 120px; 
+    font-weight: bold; 
+
+  }
+  
+  .text-box p {
+    font-size: 32px; 
+  }
+  

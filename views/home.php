@@ -59,7 +59,25 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
     <main class="container mt-4 text-center">
 
-        <!-- ACA VA TODO EL CONTENIDO -->
+    <header class="py-3 books">
+        <button type="button" class="btn btn-link">Narrativa</button>
+        <button type="button" class="btn btn-link">Poesía</button>
+        <button type="button" class="btn btn-link">Teatro</button>
+        <button type="button" class="btn btn-link">Ensayo</button>
+        <button type="button" class="btn btn-link">Ciencia</button>
+        <button type="button" class="btn btn-link">Ficción</button>
+        <button type="button" class="btn btn-link">Fantástico</button>
+        <button type="button" class="btn btn-link">Terror</button>
+        <button type="button" class="btn btn-link">Histórico</button>
+        <button type="button" class="btn btn-link">Romántico</button>
+        <button type="button" class="btn btn-link">Aventuras</button>
+        <button type="button" class="btn btn-link">Góticoo</button>
+        <button type="button" class="btn btn-link">Realismo</button>
+        <button type="button" class="btn btn-link">Link</button>
+    </header>
+
+
+
 
     </main>
 
