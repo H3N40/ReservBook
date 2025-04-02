@@ -38,10 +38,12 @@ function loginUser(username, password) {
         success: function (response) {
             if (response.status === "success") {
                 window.location.href = "../views/home.php";
+                alertify.success("login exitoso")
             } else if (response.status === "error") {
                 alertify.error(response.message);
                 $('input[name="username"]').val("");
                 $('input[name="password"]').val("");
+                alert("dtos incorrectos")
             } else {
                 console.log("Otro error");
                 $("#result").html("<p>Error en la llamada AJAX</p>");
