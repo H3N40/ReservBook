@@ -19,13 +19,17 @@ header {
     height: auto;
 }
 
-.btn-search, .btn-login, .btn-register {
+.btn-search,
+.btn-login,
+.btn-register {
     border-color: #fff;
     color: #fff;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.btn-search:hover, .btn-login:hover, .btn-register:hover {
+.btn-search:hover,
+.btn-login:hover,
+.btn-register:hover {
     background-color: #fff;
     color: #0069A3;
 }
@@ -111,7 +115,8 @@ footer {
         width: 100%;
     }
 
-    .btn-login, .btn-register {
+    .btn-login,
+    .btn-register {
         width: 100%;
         margin-top: 10px;
     }
