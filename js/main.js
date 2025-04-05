@@ -19,7 +19,7 @@ $(document).ready(function () {
         var phone = $.trim($('input[name="phone"]').val());
 
         if (fullName === "" || email === "" || password === "" || identificationNumber === "" || phone === "") {
-            alert("Todos los campos son obligatorios.");
+            alertify.error("Todos los campos son obligatorios.");
             return;
         }
 
@@ -37,13 +37,14 @@ function loginUser(username, password) {
         dataType: "json",
         success: function (response) {
             if (response.status === "success") {
-                window.location.href = "../views/home.php";
-                alert("login exitoso")
+                alertify.success("login exitoso")
+                setTimeout(() => {
+                    window.location.href = "../views/home.php";
+                }, 1000);
             } else if (response.status === "error") {
-                alert(response.message);
+                alertify.error(response.message);
                 $('input[name="username"]').val("");
                 $('input[name="password"]').val("");
-              
             } else {
                 console.log("Otro error");
                 $("#result").html("<p>Error en la llamada AJAX</p>");
@@ -66,10 +67,12 @@ function registerUser(fullName, email, password, identificationNumber, phone) {
         dataType: "json",
         success: function (response) {
             if (response.status === "success") {
-                alert("Registro exitoso");
-                window.location.href = "../views/login.html";
+                alertify.success("Registro exitoso");
+                setTimeout(() => {
+                    window.location.href = "../views/login.html";
+                }, 1000);
             } else if (response.status === "error") {
-                console.log(response.message);
+                alertify.error(response.message);
             } else {
                 console.log("Otro error");
                 $("#result").html("<p>Error en la llamada AJAX</p>");
