@@ -2,31 +2,35 @@
 session_start();
 require_once './config.php';
 
-class Register {
+class Register
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $dbConfig = new DbConfig();
         $this->db = $dbConfig->getConnection();
     }
 
-    public function registerUser($fullName, $email, $password, $identificationNumber, $phone) {
+    public function registerUser($fullName, $email, $password, $identificationNumber, $phone)
+    {
+
         $checkSql = "SELECT * FROM users WHERE email = :email";
         $checkStmt = $this->db->prepare($checkSql);
         $checkStmt->bindParam(':email', $email);
         $checkStmt->execute();
 
         if ($checkStmt->rowCount() > 0) {
-            return 'exists'; 
+            return 'exists';
         }
 
-      
+
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        
-   
+
+
         $insertSql = "INSERT INTO users (full_name, email, password, identification_number, phone, fk_role_id, status) 
                       VALUES (:full_name, :email, :password, :identification_number, :phone, 2, 'Activo')";
-        
+
         try {
             $insertStmt = $this->db->prepare($insertSql);
             $insertStmt->bindParam(':full_name', $fullName);
@@ -34,7 +38,7 @@ class Register {
             $insertStmt->bindParam(':password', $hashedPassword);
             $insertStmt->bindParam(':identification_number', $identificationNumber);
             $insertStmt->bindParam(':phone', $phone);
-            
+
             if ($insertStmt->execute()) {
                 return 'success';
             } else {

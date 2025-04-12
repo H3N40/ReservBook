@@ -12,7 +12,7 @@ class Register
         $this->db = $dbConfig->getConnection();
     }
 
-    public function addbooks($title, $author, $publisher, $publication_year, $cover_image, $stock)
+    public function addbooks($title, $author, $publisher, $publication_year, $stock, $cover_image)
     {
         $checkSql = "SELECT * FROM books WHERE title = :title";
         $checkStmt = $this->db->prepare($checkSql);

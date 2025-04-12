@@ -27,7 +27,29 @@ $(document).ready(function () {
 
         registerUser(fullName, email, password, identificationNumber, phone);
     });
+
+    $("#booksForm").submit(function (event) {
+        event.preventDefault();
+
+        var title = $.trim($('input[name="title"]').val());
+        var author = $.trim($('input[name="author"]').val());
+        var publisher = $.trim($('input[name="publisher"]').val());
+        var publication_year = $.trim($('input[name="publication_year"]').val());
+        var stock = $.trim($('input[name="stock"]').val());
+        var cover_image = $.trim($('input[name="cover_image"]').val());
+
+        if (title === "" || author === "" || publisher === "" || publication_year === "" || stock === "" || cover_image ==="") {
+            alertify.error("Todos los campos son obligatorios.");
+            return;
+        }
+
+        title = encodeURIComponent(title);
+
+        addbooks(title, author, publisher, publication_year, stock, cover_image);
+    });
 });
+
+
 
 function loginUser(username, password) {
     $.ajax({
@@ -71,6 +93,35 @@ function registerUser(fullName, email, password, identificationNumber, phone) {
                 setTimeout(() => {
                     window.location.href = "../views/login.html";
                 }, 1000);
+            } else if (response.status === "error") {
+                alertify.error(response.message);
+            } else {
+                console.log("Otro error");
+                $("#result").html("<p>Error en la llamada AJAX</p>");
+            }
+        },
+    });
+}
+
+
+function addbooks(title, author, publisher, publication_year, stock, cover_image) {
+    $.ajax({
+        url: "../backend/admin_books.php",
+        method: "POST",
+        data: {
+            title: title,
+            author: author,
+            publisher: publisher,
+            publication_year: publication_year,
+            stock: stock,
+            cover_image: cover_image
+        },
+        
+        dataType: "json",
+        success: function (response) {
+            if (response.status === "success") {
+                alertify.success("El libro se ha ingresado correctamente");
+              
             } else if (response.status === "error") {
                 alertify.error(response.message);
             } else {
