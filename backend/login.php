@@ -27,7 +27,7 @@ class Auth {
             $hashedPassword = $row['password'];
 
             if (password_verify($password, $hashedPassword)) {
-                if ($row['status'] === 'Activo') {
+                if ($row['status'] === 'active') {
                     $_SESSION['logged_in'] = true;
                     $_SESSION['user_id'] = $row['user_id'];
                     $_SESSION['role_id'] = $row['fk_role_id'];

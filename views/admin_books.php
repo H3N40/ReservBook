@@ -23,7 +23,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 ?>
 
 <!doctype html>
-<html lang="en">
+<html >
 
 <head>
     <!-- Required meta tags -->
@@ -97,7 +97,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
         <div id="booksContainer">
             <!-- Aquí se cargarán los libros dinámicamente -->
-        </div>
+        </div>  
+
     </div>
 
     </div>

@@ -29,7 +29,7 @@ class Register
 
 
         $insertSql = "INSERT INTO users (full_name, email, password, identification_number, phone, fk_role_id, status) 
-                      VALUES (:full_name, :email, :password, :identification_number, :phone, 2, 'Activo')";
+                      VALUES (:full_name, :email, :password, :identification_number, :phone, 2, 'active')";
 
         try {
             $insertStmt = $this->db->prepare($insertSql);

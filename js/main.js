@@ -43,7 +43,7 @@ $(document).ready(function () {
             return;
         }
 
-        title = encodeURIComponent(title);
+        cover_image = encodeURIComponent(cover_image);
 
         addbooks(title, author, publisher, publication_year, stock, cover_image);
     });
