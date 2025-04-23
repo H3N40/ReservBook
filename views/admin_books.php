@@ -43,7 +43,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         <!-- fila 1 -->
         <div class="row">
             <!-- fila 1 col 1 -->
-            <div class="col-xs col-sm col-md col-lg">
+
 
                 <nav class="navbar navbar-expand-lg navbar-light back-color">
                     <div class="container-fluid">

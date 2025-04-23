@@ -1,27 +1,3 @@
-<?php
-session_start();
-
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    // El usuario está autenticado
-    $user_id = $_SESSION['user_id'];
-    $role_id = $_SESSION['role_id'];
-    $nombre = $_SESSION['nombre'];
-
-    if ($role_id != 1) {
-        // El usuario no tiene el rol 1, redirige a la página de dashboard
-        header("Location: ./home.php"); // Cambia "dashboard.php" al nombre de tu página de dashboard
-        exit();
-    }
-
-} else {
-
-    header("Location: ../views/login.html");
-    exit();
-}
-
-
-?>
-
 <!doctype html>
 <html lang="en">
 
@@ -32,63 +8,55 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/home.css">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/add_books.css">
     <title>ReservBook</title>
+
+
 </head>
 
 <body>
-    <!-- Contenedor principal -->
-    <div class="container-fluid">
-        <!-- fila 1 -->
-        <div class="row">
-            <!-- fila 1 col 1 -->
-            <div class="col-xs col-sm col-md col-lg">
+<!-- Contenedor principal -->
+<div class="container-fluid">
+    <!-- fila 1 -->
+    <div class="row">
 
-                <nav class="navbar navbar-expand-lg navbar-light back-color">
-                    <div class="container-fluid">
-                        <a href="#" class="navbar-brand">
-                            <img class="logo" src="../assets/logo.png" alt="ReservBook Logo"> <!--      logo     -->
-                        </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <form class="d-flex" role="search">
-                                        <label for="search" class="visually-hidden">Search Book</label>
-                                        <input id="search" class="form-control me-2" type="search" placeholder="Search"
-                                            aria-label="Search">
-                                        <button class="btn btn-outline-light btn-search" type="submit">Search</button>
-                                    </form>
-                                </li>
-                            </ul>
-                            <ul class="navbar-nav ms-auto">
-                                <li class="nav-item">
-                                    <a class="btn btn-outline-light me-2 btn-logout"
-                                        href="../backend/logout.php">Logout</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-outline-light me-2 btn-admin" href="../views/admin.php">Admin</a>
-                                </li>
-                            </ul>
-                        </div>
+            <nav class="navbar navbar-expand-lg navbar-light back-color">
+                <div class="container-fluid">
+                    <a href="#" class="navbar-brand">
+                        <img class="logo" src="../assets/logo.png" alt="ReservBook Logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <form class="d-flex" role="search">
+                                    <label for="search" class="visually-hidden">Search Book</label>
+                                    <input id="search" class="form-control me-2" type="search" placeholder="Search"
+                                           aria-label="Search">
+                                    <button class="btn btn-outline-light btn-search" type="submit">Search</button>
+                                </form>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light me-2 btn-logout" href="../backend/logout.php">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light me-2 btn-admin" href="../views/admin.php">Admin</a>
+                            </li>
+                        </ul>
                     </div>
-                </nav>
-            </div> <!--Fin fila 1 col 1 -->
-        </div> <!-- Fin fila 1 -->
-        <!-- fila 2 -->
+                </div>
+            </nav>
+        </div>
+    </div>
 
+    <!-- fila 2 -->
 
-
-
-
-    </div> <!-- Fin fila 2 -->
-
-    <!-- fila 3 -->
     <div class="container">
         <div class="box effect7">
             <div class="header">INGRESAR LIBROS</div>
@@ -108,7 +76,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
                 <div class="input-container">
                     <input type="number" placeholder="Ingrese el año de publicacion del libro" name="publication_year"
-                        required>
+                           required>
                 </div>
 
                 <div class="input-container">
@@ -119,51 +87,24 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <input type="text" placeholder="Ingrese la url de la imagen de portada" name="cover_image" required>
                 </div>
 
-
                 <button type="submit" class="butt btn-register">Register</button>
-
             </form>
+            <br>
+            <!-- Botón Volver -->
+            <a href="javascript:history.back()" class="btn-back">Volver</a>
         </div>
     </div>
+</div>
 
+<!-- Optional JavaScript; choose one of the two! -->
 
-
-
-
-
-    </div> <!-- Fin fila 3 -->
-
-    <!-- fila 4 -->
-
-
-
-    </div> <!-- Fin fila 4 -->
-    </div>
-    <!-- Fin contenedor principal -->
-
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-  -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-    <script src="../js/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <script src="../js/main.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
+<script src="../js/main.js"></script>
 </body>
-
-</body>
-
-</html>
-
 
 </html>
