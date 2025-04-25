@@ -37,17 +37,18 @@ $(document).ready(function () {
         var publication_year = $.trim($('input[name="publication_year"]').val());
         var stock = $.trim($('input[name="stock"]').val());
         var cover_image = $.trim($('input[name="cover_image"]').val());
+        var description = $.trim($('imput[name="description"]').val());
 
-        if (title === "" || author === "" || publisher === "" || publication_year === "" || stock === "" || cover_image === "") {
+        if (title === "" || author === "" || publisher === "" || publication_year === "" || stock === "" || cover_image === "" || description === "") {
             alertify.error("Todos los campos son obligatorios.");
             return;
         }
 
         cover_image = encodeURIComponent(cover_image);
 
-        //console
 
-        addbooks(title, author, publisher, publication_year, stock, cover_image);
+
+        addbooks(title, author, publisher, publication_year, stock, cover_image, description);
     });
 });
 
@@ -106,7 +107,7 @@ function registerUser(fullName, email, password, identificationNumber, phone) {
 }
 
 
-function addbooks(title, author, publisher, publication_year, stock, cover_image) {
+function addbooks(title, author, publisher, publication_year, stock, cover_image, description) {
     $.ajax({
         url: "../backend/admin_books.php",
         method: "POST",
@@ -116,7 +117,8 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
             publisher: publisher,
             publication_year: publication_year,
             stock: stock,
-            cover_image: cover_image
+            cover_image: cover_image,
+            description: description
         },
 
         dataType: "json",

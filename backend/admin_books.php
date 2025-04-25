@@ -12,7 +12,7 @@ class Register
         $this->db = $dbConfig->getConnection();
     }
 
-    public function addbooks($title, $author, $publisher, $publication_year, $stock, $cover_image)
+    public function addbooks($title, $author, $publisher, $publication_year, $stock, $cover_image, $description)
     {
         $checkSql = "SELECT * FROM books WHERE title = :title";
         $checkStmt = $this->db->prepare($checkSql);
@@ -23,8 +23,8 @@ class Register
             return 'exists';
         }
 
-        $insertSql = "INSERT INTO books (title, author, publisher, publication_year, cover_image, stock) 
-                      VALUES (:title, :author, :publisher, :publication_year, :cover_image, :stock)";
+        $insertSql = "INSERT INTO books (title, author, publisher, publication_year, cover_image, stock, description) 
+                      VALUES (:title, :author, :publisher, :publication_year, :cover_image, :stock, :description)";
 
         try {
             $insertStmt = $this->db->prepare($insertSql);
@@ -34,6 +34,7 @@ class Register
             $insertStmt->bindParam(':publication_year', $publication_year);
             $insertStmt->bindParam(':cover_image', $cover_image);
             $insertStmt->bindParam(':stock', $stock);
+            $insertStmt->bindParam(':description', $description);
 
             if ($insertStmt->execute()) {
                 return 'success';
@@ -53,9 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $publication_year = $_POST['publication_year'];
     $cover_image = $_POST['cover_image'];
     $stock = $_POST['stock'];
+    $description = $_POST['description'];
 
     $register = new Register();
-    $result = $register->addbooks($title, $author, $publisher, $publication_year, $cover_image, $stock);
+    $result = $register->addbooks($title, $author, $publisher, $publication_year, $cover_image, $stock, $description);
 
     if ($result === 'success') {
         $response = array(

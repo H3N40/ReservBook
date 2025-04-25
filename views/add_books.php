@@ -119,6 +119,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <input type="text" placeholder="Ingrese la url de la imagen de portada" name="cover_image" required>
                 </div>
 
+                <div class="input-container">
+                    <input type="text" placeholder="Ingrese la descripcion" name="description" required>
+                </div>
+
+
 
                 <button type="submit" class="butt btn-register">Register</button>
 
