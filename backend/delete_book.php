@@ -33,9 +33,10 @@ class Book {
                 return 'error';
             }
         } else {
-            return 'not_found'; 
+            return 'not_found';
         }
     }
+
 }
 
 
@@ -64,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
         );
         echo json_encode($response);
     }
-    
-} 
+
+}
 
 ?>

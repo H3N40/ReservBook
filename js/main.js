@@ -46,13 +46,11 @@ $(document).ready(function () {
 
         cover_image = encodeURIComponent(cover_image);
 
-
+        //console
 
         addbooks(title, author, publisher, publication_year, stock, cover_image, description);
     });
 });
-
-
 
 function loginUser(username, password) {
     $.ajax({
@@ -106,7 +104,6 @@ function registerUser(fullName, email, password, identificationNumber, phone) {
     });
 }
 
-
 function addbooks(title, author, publisher, publication_year, stock, cover_image, description) {
     $.ajax({
         url: "../backend/admin_books.php",
@@ -125,7 +122,9 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
         success: function (response) {
             if (response.status === "success") {
                 alertify.success("El libro se ha ingresado correctamente");
-
+                setTimeout(function() {
+                    location.reload(); // Recarga la página
+                }, 1000);
             } else if (response.status === "error") {
                 alertify.error(response.message);
             } else {
@@ -135,7 +134,6 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
         },
     });
 }
-
 
 
 $(document).ready(function () {
@@ -155,7 +153,7 @@ $(document).ready(function () {
                     // Recorrer los libros para crear la tabla de ese tamaño
                     for (var i = 0; i < books.length; i++) {
                         booksContainer.append(`
-                            <div class="book-item">
+                            <div class="book-item" id="book-${books[i].id}">
                                 <div class="book-content">
                                     <img src="${books[i].cover_image}" alt="Portada" class="book-cover">
                                     <span class="book-title">${books[i].title}</span>
@@ -174,12 +172,12 @@ $(document).ready(function () {
                         editBook(bookId);
                     });
 
-                     // boton de elimar libros segun su id
+                    // boton de eliminar libros segun su id
                     $(".delete-btn").click(function() {
                         var bookId = $(this).data("id");
                         deleteBook(bookId);
                     });
-                    
+
                 } else {
                     booksContainer.html("<p>No hay libros registrados.</p>");
                 }
@@ -192,26 +190,21 @@ $(document).ready(function () {
         }
     });
 
-
     function editBook(id) {
-    
-
-        
+        // Función de edición de libros (por implementar)
     }
-
-
 
     function deleteBook(id) {
         alertify.confirm("Eliminar libro", "¿Estás seguro de que quieres eliminar este libro?", function() {
             $.ajax({
-                url: "../backend/delete_book.php", 
+                url: "../backend/delete_book.php",
                 method: "POST",
                 data: { id: id },
                 dataType: "json",
                 success: function(response) {
                     if (response.status === "success") {
                         alertify.success("Libro eliminado con éxito.");
-                        $("#book-" + id).remove();
+                        location.reload();
                     } else {
                         alertify.error(response.message);
                     }
@@ -224,4 +217,5 @@ $(document).ready(function () {
             alertify.error("Eliminación cancelada.");
         });
     }
+
 });
