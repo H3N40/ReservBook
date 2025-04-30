@@ -91,7 +91,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- fila 3 -->
     <div class="container">
         <div class="header">
-            <h1>SELECCIONA EL LIBRO</h1>
+            <h1>SELECCIONA EL LIBROO</h1>
             <a href="../views/add_books.php" id="addBookBtn" class="action-btn">Agregar</a>
         </div>
 
@@ -142,5 +142,3 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 </html>
 
-
-</html>

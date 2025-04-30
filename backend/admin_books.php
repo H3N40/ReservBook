@@ -23,8 +23,8 @@ class Register
             return 'exists';
         }
 
-        $insertSql = "INSERT INTO books (title, author, publisher, publication_year, cover_image, stock, description) 
-                      VALUES (:title, :author, :publisher, :publication_year, :cover_image, :stock, :description)";
+        $insertSql = "INSERT INTO books (title, author, publisher, publication_year, stock, cover_image, description) 
+        VALUES (:title, :author, :publisher, :publication_year, :stock, :cover_image, :description)";        
 
         try {
             $insertStmt = $this->db->prepare($insertSql);

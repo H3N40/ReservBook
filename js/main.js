@@ -35,9 +35,9 @@ $(document).ready(function () {
         var author = $.trim($('input[name="author"]').val());
         var publisher = $.trim($('input[name="publisher"]').val());
         var publication_year = $.trim($('input[name="publication_year"]').val());
-        var stock = $.trim($('input[name="stock"]').val());
-        var cover_image = $.trim($('input[name="cover_image"]').val());
-        var description = $.trim($('imput[name="description"]').val());
+        var stock = $.trim($('input[name="cover_image"]').val());
+        var cover_image = $.trim($('input[name="stock"]').val());
+        var description = $.trim($('input[name="description"]').val());
 
         if (title === "" || author === "" || publisher === "" || publication_year === "" || stock === "" || cover_image === "" || description === "") {
             alertify.error("Todos los campos son obligatorios.");
@@ -163,7 +163,7 @@ $(document).ready(function () {
                                     <button class="delete-btn" data-id="${books[i].id}">Eliminar</button>
                                 </div>
                             </div>
-                        `);
+                        `);                        
                     }
 
                     // boton de editar libros segun su id
@@ -191,31 +191,127 @@ $(document).ready(function () {
     });
 
     function editBook(id) {
-        // Función de edición de libros (por implementar)
+        
+
     }
 
-    function deleteBook(id) {
-        alertify.confirm("Eliminar libro", "¿Estás seguro de que quieres eliminar este libro?", function() {
+function deleteBook(id) {
+    console.log(id);
+    alertify.confirm("Eliminar libro", "¿Estás seguro de que quieres eliminar este libro?", function() {
+        $.ajax({
+            url: "../backend/delete_book.php", 
+            method: "POST",
+            data: { id: id },
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                if (response.status === "success") {
+                    alertify.success("Libro eliminado con éxito.");
+                    location.reload();
+                } else {
+                    alertify.error(response.message);
+                }
+            },
+            error: function() {
+                alertify.error("Error al eliminar el libro.");
+            }
+        });
+    }, function() {
+        alertify.error("Eliminación cancelada.");
+    });
+}
+
+
+});
+
+
+
+
+
+
+$(document).ready(function () {
+    $.ajax({
+        url: "../backend/get_users.php", 
+        method: "GET",
+        dataType: "json",
+        success: function (response) {
+            if (response.status === "success") {
+                var users = response.data;
+
+                // Contenedor para los usuarios
+                var usersContainer = $("#usersContainer");
+                usersContainer.empty();
+
+                if (users.length > 0) {
+                    // Recorrer los usuarios para crear la tabla de ese tamaño
+                    for (var i = 0; i < users.length; i++) {
+                        usersContainer.append(`
+                            <div class="user-item" id="user-${users[i].user_id}">
+                                <div class="user-content">
+                                    <span class="user-name">${users[i].full_name}</span>
+                                    <span class="user-email">${users[i].email}</span>
+                                </div>
+                                <div class="user-actions">
+                                    <button class="edit-btn" data-id="${users[i].user_id}">Editar</button>
+                                    <button class="delete-btn" data-id="${users[i].user_id}">Eliminar</button>
+                                </div>
+                            </div>
+                        `);
+                        
+                    }
+
+                    // Botón de editar usuario según su id
+                    $(".edit-btn").click(function() {
+                        var userId = $(this).data("id");
+                        editUser(userId);
+                    });
+
+                    // Botón de eliminar usuario según su id
+                    $(".delete-btn").click(function() {
+                        var userId = $(this).data("id");
+                        deleteUser(userId);
+                    });
+
+                } else {
+                    usersContainer.html("<p>No hay usuarios registrados.</p>");
+                }
+            } else {
+                alertify.error("Error al obtener los usuarios.");
+            }
+        },
+        error: function() {
+            alertify.error("Error de conexión al servidor.");
+        }
+    });
+
+    function editUser(id) {
+       
+
+    }
+
+    function deleteUser(id) {
+        alertify.confirm("Eliminar usuario", "¿Estás seguro de que quieres eliminar este usuario?", function() {
             $.ajax({
-                url: "../backend/delete_book.php",
+                url: "../backend/delete_users.php", 
                 method: "POST",
                 data: { id: id },
                 dataType: "json",
                 success: function(response) {
+                    console.log(response); 
                     if (response.status === "success") {
-                        alertify.success("Libro eliminado con éxito.");
+                        alertify.success("Usuario eliminado con éxito.");
                         location.reload();
                     } else {
                         alertify.error(response.message);
                     }
                 },
                 error: function() {
-                    alertify.error("Error al eliminar el libro.");
+                    alertify.error("Error al eliminar el usuario.");
                 }
             });
         }, function() {
             alertify.error("Eliminación cancelada.");
         });
     }
-
+    
 });

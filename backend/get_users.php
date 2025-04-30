@@ -22,3 +22,4 @@ $getUsers = new GetUsers();
 $users = $getUsers->getAllUsers();
 
 echo json_encode(['status' => 'success', 'data' => $users]);
+?>
