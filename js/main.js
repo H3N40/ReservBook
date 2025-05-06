@@ -23,7 +23,6 @@ $(document).ready(function () {
             return;
         }
 
-        password = encodeURIComponent(password);
 
         registerUser(fullName, email, password, identificationNumber, phone);
     });
@@ -136,6 +135,8 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
 }
 
 
+
+
 $(document).ready(function () {
     $.ajax({
         url: "../backend/get_books.php",
@@ -159,21 +160,21 @@ $(document).ready(function () {
                                     <span class="book-title">${books[i].title}</span>
                                 </div>
                                 <div class="book-actions">
-                                    <button class="edit-btn" data-id="${books[i].id}">Editar</button>
-                                    <button class="delete-btn" data-id="${books[i].id}">Eliminar</button>
+                                    <button class="edit_book-btn" data-id="${books[i].id}">Editar</button>
+                                    <button class="delete_book-btn" data-id="${books[i].id}">Eliminar</button>
                                 </div>
                             </div>
                         `);                        
                     }
 
                     // boton de editar libros segun su id
-                    $(".edit-btn").click(function() {
+                    $(".edit_book-btn").click(function() {
                         var bookId = $(this).data("id");
                         editBook(bookId);
                     });
 
                     // boton de eliminar libros segun su id
-                    $(".delete-btn").click(function() {
+                    $(".delete_book-btn").click(function() {
                         var bookId = $(this).data("id");
                         deleteBook(bookId);
                     });
@@ -252,8 +253,8 @@ $(document).ready(function () {
                                     <span class="user-email">${users[i].email}</span>
                                 </div>
                                 <div class="user-actions">
-                                    <button class="edit-btn" data-id="${users[i].user_id}">Editar</button>
-                                    <button class="delete-btn" data-id="${users[i].user_id}">Eliminar</button>
+                                    <button class="edit_book-btn" data-id="${users[i].user_id}">Editar</button>
+                                    <button class="delete_user-btn" data-id="${users[i].user_id}">Eliminar</button>
                                 </div>
                             </div>
                         `);
@@ -261,13 +262,13 @@ $(document).ready(function () {
                     }
 
                     // Botón de editar usuario según su id
-                    $(".edit-btn").click(function() {
+                    $(".edit_book-btn").click(function() {
                         var userId = $(this).data("id");
                         editUser(userId);
                     });
 
                     // Botón de eliminar usuario según su id
-                    $(".delete-btn").click(function() {
+                    $(".delete_user-btn").click(function() {
                         var userId = $(this).data("id");
                         deleteUser(userId);
                     });
@@ -314,4 +315,17 @@ $(document).ready(function () {
         });
     }
     
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (toggleBtn && sidebar) {
+        toggleBtn.addEventListener('click', function () {
+            sidebar.classList.toggle('collapsed');
+        });
+    }
 });

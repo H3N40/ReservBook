@@ -65,7 +65,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                                         href="../backend/logout.php">Logout</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-light me-2 btn-admin" href="../views/admin_books.php">Admin</a>
+                                    <a class="btn btn-outline-light me-2 btn-admin" href="../views/view_admin.php">Admin</a>
                                 </li>
                             </ul>
                         </div>
