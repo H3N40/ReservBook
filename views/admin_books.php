@@ -60,19 +60,19 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                                 <li class="nav-item">
                                     <form class="d-flex" role="search">
                                         <label for="search" class="visually-hidden">Search Book</label>
-                                        <input id="search" class="form-control me-2" type="search" placeholder="Search"
-                                            aria-label="Search">
-                                        <button class="btn btn-outline-light btn-search" type="submit">Search</button>
+                                        <input id="search" class="form-control me-2" type="search" placeholder="Buscar líbro"
+                                               aria-label="Search">
+                                        <button class="btn btn-outline-light btn-search" type="submit">Buscar</button>
                                     </form>
                                 </li>
                             </ul>
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item">
                                     <a class="btn btn-outline-light me-2 btn-logout"
-                                        href="../backend/logout.php">Logout</a>
+                                       href="../backend/logout.php">Cerrar sesión</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-light me-2 btn-admin" href="../views/admin.php">Admin</a>
+                                    <a class="btn btn-outline-light me-2 btn-admin" href="../views/admin_books.php">Admin</a>
                                 </li>
                             </ul>
                         </div>
@@ -91,7 +91,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- fila 3 -->
     <div class="container">
         <div class="header">
-            <h1>SELECCIONA EL LIBROO</h1>
+            <h1>SELECCIONA EL LIBRO</h1>
             <a href="../views/add_books.php" id="addBookBtn" class="action-btn">Agregar</a>
         </div>
 

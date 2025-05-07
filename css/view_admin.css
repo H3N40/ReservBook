@@ -10,7 +10,7 @@ body {
 .sidebar {
     width: var(--sidebar-width);
     height: 100vh;
-    background-color: rgb(224, 217, 196);
+    background-color: rgb(228, 213, 183);
     transition: all 0.3s ease;
 }
 
