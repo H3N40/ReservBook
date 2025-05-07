@@ -1,5 +1,30 @@
+<?php
+session_start();
+
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    // El usuario está autenticado
+    $user_id = $_SESSION['user_id'];
+    $role_id = $_SESSION['role_id'];
+    $nombre = $_SESSION['nombre'];
+
+    if ($role_id != 1) {
+        // El usuario no tiene el rol 1, redirige a la página de dashboard
+        header("Location: ./home.php"); // Cambia "dashboard.php" al nombre de tu página de dashboard
+        exit();
+    }
+
+} else {
+
+    header("Location: ../views/login.html");
+    exit();
+}
+
+
+?>
+
+
 <!doctype html>
-<html lang="en">
+<html>
 
 <head>
     <!-- Required meta tags -->
@@ -11,105 +36,142 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/add_books.css">
     <title>ReservBook</title>
-
-
 </head>
 
 <body>
-<!-- Contenedor principal -->
-<div class="container-fluid">
-    <!-- fila 1 -->
-    <div class="row">
 
-            <nav class="navbar navbar-expand-lg navbar-light back-color">
-                <div class="container-fluid">
-                    <a href="#" class="navbar-brand">
-                        <img class="logo" src="../assets/logo.png" alt="ReservBook Logo">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <form class="d-flex" role="search">
-                                    <label for="search" class="visually-hidden">Search Book</label>
-                                    <input id="search" class="form-control me-2" type="search" placeholder="Search"
-                                           aria-label="Search">
-                                    <button class="btn btn-outline-light btn-search" type="submit">Search</button>
-                                </form>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="btn btn-outline-light me-2 btn-logout" href="../backend/logout.php">Logout</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-outline-light me-2 btn-admin" href="../views/admin.php">Admin</a>
-                            </li>
-                        </ul>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+
+<div class="d-flex">
+    <nav class="sidebar d-flex flex-column flex-shrink-0 position-fixed">
+        <button class="toggle-btn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+
+        <div class="p-4">
+
+            <p class="text-muted small hide-on-collapse">Dashboard</p>
+        </div>
+
+        <div class="nav flex-column">
+            <a href="./view_admin.php" class="sidebar-link active text-decoration-none p-3">
+                <i class="fas fa-home me-3"></i>
+                <span class="hide-on-collapse">Inicio</span>
+            </a>
+            <a href="./add_books.php" class="sidebar-link text-decoration-none p-3">
+                <i class="fas fa-book me-3"></i>
+                <span class="hide-on-collapse">Libros</span>
+            </a>
+            <a href="#" class="sidebar-link text-decoration-none p-3">
+                <i class="fas fa-users me-3"></i>
+                <span class="hide-on-collapse">Usuarios</span>
+            </a>
+
+            <a href="#" class="sidebar-link text-decoration-none p-3">
+                <i class="fas fa-box me-3"></i>
+                <span class="hide-on-collapse">Products</span>
+            </a>
+            <a href="#" class="sidebar-link text-decoration-none p-3">
+                <i class="fas fa-gear me-3"></i>
+                <span class="hide-on-collapse">Settings</span>
+            </a>
+        </div>
+
+        <div class="profile-section mt-auto p-1">
+            <div class="d-flex align-items-center">
+                <img src="https://randomuser.me/api/portraits/women/70.jpg" style="height:60px"
+                     class="rounded-circle" alt="Profile">
+                <div class="ms-3 profile-info">
+                    <h6 class="text-white mb-0">Alex Morgan</h6>
+                    <small class="text-muted">Admin</small>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <img src="../assets/libreria-admin.jpg" class="background-img" alt="Fondo">
+
+        <div class="container">
+            <div class="box effect7">
+                <div class="header">Agregar información libro</div>
+                <form id="booksForm">
+
+
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="title" placeholder="" required>
+                        <label for="title">Nombre del libro</label>
                     </div>
-                </div>
-            </nav>
+
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="author" placeholder="" required>
+                        <label for="author">Autor del libro</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="publisher" placeholder="" required>
+                        <label for="publisher">Nombre editorial</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input type="number" class="form-control" id="publication_year" placeholder="" required>
+                        <label for="publication_year">Año Publicación</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input type="number" class="form-control" id="stock" placeholder="" required>
+                        <label for="stock">Ingrese el stock</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="cover_image" placeholder="" required>
+                        <label for="cover_image">Url imagen portada</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input type="text" class="form-control" id="description" placeholder="" required>
+                        <label for="description">Descripción</label>
+                    </div>
+
+                    <button type="submit" class="butt btn-register">Registrar Libro</button>
+                </form>
+
+            </div>
+
+
+
+
+
+
         </div>
-    </div>
-
-    <!-- fila 2 -->
-
-    <div class="container">
-        <div class="box effect7">
-            <div class="header">INGRESAR LIBROS</div>
-            <form id="booksForm">
-
-                <div class="input-container">
-                    <input type="text" placeholder="Ingrese el nombre del libro" name="title" required>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" placeholder="Ingrese el autor del libro" name="author" required>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" placeholder="Ingrese el nombre de la editorial" name="publisher" required>
-                </div>
-
-                <div class="input-container">
-                    <input type="number" placeholder="Ingrese el año de publicacion del libro" name="publication_year"
-                           required>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" placeholder="Ingrese el stock" name="stock" required>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" placeholder="Ingrese la url de la imagen de portada" name="cover_image" required>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" placeholder="Ingrese la descripcion" name="description" required>
-                </div>
-
-
-
-                <button type="submit" class="butt btn-register">Register</button>
-            </form>
-            <br>
-            <!-- Botón Volver -->
-            <a href="javascript:history.back()" class="btn-back">Volver</a>
-        </div>
-    </div>
 </div>
+</main>
+
+</div>
+
 
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 <script src="../js/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <script src="../js/main.js"></script>
+</body>
+
 </body>
 
 </html>

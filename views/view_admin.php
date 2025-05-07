@@ -61,17 +61,17 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </div>
 
             <div class="nav flex-column">
-                <a href="#" class="sidebar-link active text-decoration-none p-3">
+                <a href="./view_admin.php" class="sidebar-link active text-decoration-none p-3">
                     <i class="fas fa-home me-3"></i>
-                    <span class="hide-on-collapse">Usuarios</span>
+                    <span class="hide-on-collapse">Inicio</span>
                 </a>
-                <a href="#" class="sidebar-link text-decoration-none p-3">
-                    <i class="fas fa-chart-bar me-3"></i>
+                <a href="./add_books.php" class="sidebar-link text-decoration-none p-3">
+                    <i class="fas fa-book me-3"></i>
                     <span class="hide-on-collapse">Libros</span>
                 </a>
                 <a href="#" class="sidebar-link text-decoration-none p-3">
                     <i class="fas fa-users me-3"></i>
-                    <span class="hide-on-collapse">Customers</span>
+                    <span class="hide-on-collapse">Usuarios</span>
                 </a>
 
                 <a href="#" class="sidebar-link text-decoration-none p-3">
