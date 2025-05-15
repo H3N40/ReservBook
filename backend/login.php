@@ -33,6 +33,11 @@ class Auth {
                     $_SESSION['role_id'] = $row['fk_role_id'];
                     $_SESSION['nombre'] = $row['full_name'];
                     $_SESSION['email'] = $row['email'];
+                    
+                    $insertSql = "INSERT INTO accesses (user_id) VALUES (:user_id)";
+                    $insertStmt = $this->db->prepare($insertSql);
+                    $insertStmt->bindParam(':user_id', $row['user_id'], PDO::PARAM_INT);
+                    $insertStmt->execute();
 
                     return true; // Autenticación exitosa
                 } else {

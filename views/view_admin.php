@@ -23,7 +23,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 ?>
 
 
-
 <!doctype html>
 <html>
 
@@ -40,9 +39,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 </head>
 
 <body>
-
-
-
 
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
@@ -96,18 +92,46 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </div>
         </nav>
 
+
+
+
         <main class="main-content">
-    <img src="../assets/libreria-admin.jpg" class="background-img" alt="Fondo">
+            <img src="../assets/libreria-admin.jpg" class="background-img" alt="Fondo">
 
-    <div class="container-fluid">
-        <h2>Bienvenido NexusFlow</h2>
-        <p class="text-muted">Streamline your workflow with our intuitive dashboard.</p>
+
+            <div class="container-fluid text-center" id="welcome-section">
+                    <div id="view-1-chart" class="view-section d-none">
+                        <h2>Estadísticas de Accesos</h2>
+                        <p class="text-muted">Cantidad de accesos de usuarios por fecha</p>
+                        <canvas id="accessChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+                <div id="view-2" class="view-section d-none">
+                    <h2>Estadísticas rápidas</h2>
+                    <p class="text-muted">Consulta el resumen de libros y usuarios activos.</p>
+                </div>
+                <div id="view-3" class="view-section d-none">
+                    <h2>Configuración rápida</h2>
+                    <p class="text-muted">Personaliza tu experiencia de administrador.</p>
+                </div>
+                <div id="view-4" class="view-section d-none">
+                    <h2>Configuración </h2>
+                    <p class="text-muted">Personaliza tu experiencia de administrador.</p>
+                </div>
+                <div id="view-5" class="view-section d-none">
+                    <h2> rápida</h2>
+                    <p class="text-muted">Personaliza tu experiencia de administrador.</p>
+                </div>
+
+
+                <button id="next-view" class="btn btn-light mt-4">
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
+
+
+
     </div>
-</main>
-
-    </div>
-
-
 
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -119,14 +143,16 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-  -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
     <script src="../js/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/main.js"></script>
+
 </body>
 
 </body>

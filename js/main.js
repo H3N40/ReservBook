@@ -329,3 +329,108 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const views = document.querySelectorAll(".view-section");
+    const nextButton = document.getElementById("next-view");
+    let currentIndex = 0;
+
+    if (nextButton && views.length > 0) {
+        nextButton.addEventListener("click", function () {
+            // Ocultar la vista actual
+            views[currentIndex].classList.add("d-none");
+
+            // Calcular el siguiente índice
+            currentIndex = (currentIndex + 1) % views.length;
+
+            // Mostrar la nueva vista
+            views[currentIndex].classList.remove("d-none");
+        });
+    }
+});
+
+
+
+$(document).ready(function () {
+    $.ajax({
+        url: "../backend/get_access_data.php",
+        method: "GET",
+        dataType: "json",
+        success: function (response) {
+            if (response.status === "success") {
+                var accessData = response.data;
+
+                // Mapear fechas y accesos
+                var dates = accessData.map(function (item) {
+                    return item.access_date;
+                });
+                var totals = accessData.map(function (item) {
+                    return item.total;
+                });
+
+                // Seleccionar el contexto del canvas
+                var ctx = document.getElementById("accessChart").getContext("2d");
+
+                // Crear el gráfico
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dates, // Fechas en el eje X
+                        datasets: [{
+                            label: 'Accesos por día',
+                            data: totals, // Totales de accesos en el eje Y
+                            borderColor: 'rgba(75, 192, 192, 1)', // Color de la línea
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de fondo
+                            fill: true, // Rellenar el área bajo la línea
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top', // Ubicación de la leyenda
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (tooltipItem) {
+                                        return tooltipItem.raw + " accesos"; // Mostrar accesos en el tooltip
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Fecha' // Título del eje X
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Número de accesos' // Título del eje Y
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Mostrar el gráfico después de cargar los datos
+                $('#view-1-chart').removeClass('d-none');
+            } else {
+                alertify.error("Error al obtener los datos de acceso.");
+            }
+        },
+        error: function () {
+            alertify.error("Error de conexión al servidor.");
+        }
+    });
+
+    // Controlar la visibilidad de las vistas con el botón
+    $("#next-view").click(function () {
+        $("#view-1").removeClass('d-none');
+        $("#view-1").addClass('d-none');
+    });
+});
+
