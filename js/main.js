@@ -55,7 +55,7 @@ function loginUser(username, password) {
     $.ajax({
         url: "../backend/login.php",
         method: "POST",
-        data: { username: username, password: password },
+        data: {username: username, password: password},
         dataType: "json",
         success: function (response) {
             if (response.status === "success") {
@@ -121,7 +121,7 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
         success: function (response) {
             if (response.status === "success") {
                 alertify.success("El libro se ha ingresado correctamente");
-                setTimeout(function() {
+                setTimeout(function () {
                     location.reload(); // Recarga la página
                 }, 1000);
             } else if (response.status === "error") {
@@ -133,8 +133,6 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
         },
     });
 }
-
-
 
 
 $(document).ready(function () {
@@ -164,17 +162,17 @@ $(document).ready(function () {
                                     <button class="delete_book-btn" data-id="${books[i].id}">Eliminar</button>
                                 </div>
                             </div>
-                        `);                        
+                        `);
                     }
 
                     // boton de editar libros segun su id
-                    $(".edit_book-btn").click(function() {
+                    $(".edit_book-btn").click(function () {
                         var bookId = $(this).data("id");
                         editBook(bookId);
                     });
 
                     // boton de eliminar libros segun su id
-                    $(".delete_book-btn").click(function() {
+                    $(".delete_book-btn").click(function () {
                         var bookId = $(this).data("id");
                         deleteBook(bookId);
                     });
@@ -186,53 +184,49 @@ $(document).ready(function () {
                 alertify.error("Error al obtener los libros.");
             }
         },
-        error: function() {
+        error: function () {
             alertify.error("Error de conexión al servidor.");
         }
     });
 
     function editBook(id) {
-        
+
 
     }
 
-function deleteBook(id) {
-    console.log(id);
-    alertify.confirm("Eliminar libro", "¿Estás seguro de que quieres eliminar este libro?", function() {
-        $.ajax({
-            url: "../backend/delete_book.php", 
-            method: "POST",
-            data: { id: id },
-            dataType: "json",
-            success: function(response) {
-                console.log(response);
-                if (response.status === "success") {
-                    alertify.success("Libro eliminado con éxito.");
-                    location.reload();
-                } else {
-                    alertify.error(response.message);
+    function deleteBook(id) {
+        console.log(id);
+        alertify.confirm("Eliminar libro", "¿Estás seguro de que quieres eliminar este libro?", function () {
+            $.ajax({
+                url: "../backend/delete_book.php",
+                method: "POST",
+                data: {id: id},
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    if (response.status === "success") {
+                        alertify.success("Libro eliminado con éxito.");
+                        location.reload();
+                    } else {
+                        alertify.error(response.message);
+                    }
+                },
+                error: function () {
+                    alertify.error("Error al eliminar el libro.");
                 }
-            },
-            error: function() {
-                alertify.error("Error al eliminar el libro.");
-            }
+            });
+        }, function () {
+            alertify.error("Eliminación cancelada.");
         });
-    }, function() {
-        alertify.error("Eliminación cancelada.");
-    });
-}
+    }
 
 
 });
 
 
-
-
-
-
 $(document).ready(function () {
     $.ajax({
-        url: "../backend/get_users.php", 
+        url: "../backend/get_users.php",
         method: "GET",
         dataType: "json",
         success: function (response) {
@@ -253,25 +247,61 @@ $(document).ready(function () {
                                     <span class="user-email">${users[i].email}</span>
                                 </div>
                                 <div class="user-actions">
-                                    <button class="edit_book-btn" data-id="${users[i].user_id}">Editar</button>
+                                    <button class="edit_user-btn" data-id="${users[i].user_id}">Editar</button>
                                     <button class="delete_user-btn" data-id="${users[i].user_id}">Eliminar</button>
                                 </div>
                             </div>
                         `);
-                        
+
                     }
 
                     // Botón de editar usuario según su id
-                    $(".edit_book-btn").click(function() {
+                    $(".edit_user-btn").click(function () {
                         var userId = $(this).data("id");
                         editUser(userId);
                     });
 
+
                     // Botón de eliminar usuario según su id
-                    $(".delete_user-btn").click(function() {
+                    $(".delete_user-btn").click(function () {
                         var userId = $(this).data("id");
                         deleteUser(userId);
                     });
+
+
+                    $("#editUserForm").submit(function (event) {
+                        event.preventDefault();
+
+                        const userId = $("#editUserId").val();
+                        const fullName = $("#editFullName").val();
+                        const email = $("#editEmail").val();
+                        const phone = $("#editPhone").val();
+
+                        $.ajax({
+                            url: "../backend/update_user.php",
+                            method: "POST",
+                            data: {
+                                user_id: userId,
+                                full_name: fullName,
+                                email: email,
+                                phone: phone
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.status === "success") {
+                                    alertify.success("Usuario actualizado correctamente");
+                                    $("#editUserModal").modal("hide");
+                                    location.reload();
+                                } else {
+                                    alertify.error(response.message);
+                                }
+                            },
+                            error: function () {
+                                alertify.error("Error al actualizar el usuario.");
+                            }
+                        });
+                    });
+
 
                 } else {
                     usersContainer.html("<p>No hay usuarios registrados.</p>");
@@ -280,25 +310,46 @@ $(document).ready(function () {
                 alertify.error("Error al obtener los usuarios.");
             }
         },
-        error: function() {
+        error: function () {
             alertify.error("Error de conexión al servidor.");
         }
     });
 
-    function editUser(id) {
-       
+    function editUser(userId) {
+        $.ajax({
+            url: "../backend/get_user_by_id.php", // Nuevo backend que te mostraré abajo
+            method: "POST",
+            data: {id: userId},
+            dataType: "json",
+            success: function (response) {
+                if (response.status === "success") {
+                    const user = response.data;
+                    $("#editUserId").val(user.user_id);
+                    $("#editFullName").val(user.full_name);
+                    $("#editEmail").val(user.email);
+                    $("#editPhone").val(user.phone);
 
+                    $("#editUserModal").modal("show"); // Mostrar modal
+                } else {
+                    alertify.error("No se encontró el usuario.");
+                }
+            },
+            error: function () {
+                alertify.error("Error al buscar usuario.");
+            }
+        });
     }
 
+
     function deleteUser(id) {
-        alertify.confirm("Eliminar usuario", "¿Estás seguro de que quieres eliminar este usuario?", function() {
+        alertify.confirm("Eliminar usuario", "¿Estás seguro de que quieres eliminar este usuario?", function () {
             $.ajax({
-                url: "../backend/delete_users.php", 
+                url: "../backend/delete_users.php",
                 method: "POST",
-                data: { id: id },
+                data: {id: id},
                 dataType: "json",
-                success: function(response) {
-                    console.log(response); 
+                success: function (response) {
+                    console.log(response);
                     if (response.status === "success") {
                         alertify.success("Usuario eliminado con éxito.");
                         location.reload();
@@ -306,17 +357,16 @@ $(document).ready(function () {
                         alertify.error(response.message);
                     }
                 },
-                error: function() {
+                error: function () {
                     alertify.error("Error al eliminar el usuario.");
                 }
             });
-        }, function() {
+        }, function () {
             alertify.error("Eliminación cancelada.");
         });
     }
-    
-});
 
+});
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -349,7 +399,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
 
 
 $(document).ready(function () {

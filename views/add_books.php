@@ -63,9 +63,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </a>
             <a href="./add_books.php" class="sidebar-link text-decoration-none p-3">
                 <i class="fas fa-book me-3"></i>
-                <span class="hide-on-collapse">Libros</span>
+                <span class="hide-on-collapse">Agregar Libros</span>
             </a>
-            <a href="#" class="sidebar-link text-decoration-none p-3">
+            <a href="./admin_books.php" class="sidebar-link text-decoration-none p-3">
+                <i class="fas fa-book me-3"></i>
+                <span class="hide-on-collapse"> Libros</span>
+            </a>
+            <a href="admin_users.php" class="sidebar-link text-decoration-none p-3">
                 <i class="fas fa-users me-3"></i>
                 <span class="hide-on-collapse">Usuarios</span>
             </a>
@@ -98,41 +102,42 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         <div class="container">
             <div class="box effect7">
                 <div class="header">Agregar información libro</div>
-                <form id="booksForm">
+                <form id="booksForm" method="POST" action="../php/agregar_libro.php">
 
 
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="title" placeholder="" required>
+                        <input type="text" class="form-control" id="title" name="title" required>
                         <label for="title">Nombre del libro</label>
                     </div>
 
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="author" placeholder="" required>
+                        <input type="text" class="form-control" id="author" name="author" required>
                         <label for="author">Autor del libro</label>
                     </div>
 
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="publisher" placeholder="" required>
+                        <input type="text" class="form-control" id="publisher" name="publisher" required>
                         <label for="publisher">Nombre editorial</label>
                     </div>
 
                     <div class="form-floating mb-2">
-                        <input type="number" class="form-control" id="publication_year" placeholder="" required>
+                        <input type="number" class="form-control" id="publication_year" name="publication_year"
+                               required>
                         <label for="publication_year">Año Publicación</label>
                     </div>
 
                     <div class="form-floating mb-2">
-                        <input type="number" class="form-control" id="stock" placeholder="" required>
+                        <input type="number" class="form-control" id="stock" name="stock" required>
                         <label for="stock">Ingrese el stock</label>
                     </div>
 
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="cover_image" placeholder="" required>
+                        <input type="text" class="form-control" id="cover_image" name="cover_image" required>
                         <label for="cover_image">Url imagen portada</label>
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input type="text" class="form-control" id="description" placeholder="" required>
+                        <input type="text" class="form-control" id="description" name="description" required>
                         <label for="description">Descripción</label>
                     </div>
 
@@ -140,10 +145,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 </form>
 
             </div>
-
-
-
-
 
 
         </div>

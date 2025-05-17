@@ -63,9 +63,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 </a>
                 <a href="./add_books.php" class="sidebar-link text-decoration-none p-3">
                     <i class="fas fa-book me-3"></i>
-                    <span class="hide-on-collapse">Libros</span>
+                    <span class="hide-on-collapse">Agregar Libros</span>
                 </a>
-                <a href="#" class="sidebar-link text-decoration-none p-3">
+                <a href="./admin_books.php" class="sidebar-link text-decoration-none p-3">
+                    <i class="fas fa-book me-3"></i>
+                    <span class="hide-on-collapse"> Libros</span>
+                </a>
+                <a href="admin_users.php" class="sidebar-link text-decoration-none p-3">
                     <i class="fas fa-users me-3"></i>
                     <span class="hide-on-collapse">Usuarios</span>
                 </a>
