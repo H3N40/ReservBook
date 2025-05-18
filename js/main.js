@@ -10,7 +10,6 @@ $(document).ready(function () {
     });
 
 
-
     $("#registerForm").submit(function (event) {
         event.preventDefault();
 
@@ -28,7 +27,6 @@ $(document).ready(function () {
 
         registerUser(fullName, email, password, identificationNumber, phone);
     });
-
 
 
     $("#booksForm").submit(function (event) {
@@ -55,35 +53,36 @@ $(document).ready(function () {
     });
 
 
-$("#userForm").submit(function (event) {
-    event.preventDefault();
+    $("#userForm").submit(function (event) {
+        event.preventDefault();
 
-    var full_name = $.trim($('input[name="full_name"]').val());
-    var email = $.trim($('input[name="email"]').val());
-    var password = $.trim($('input[name="password"]').val());
-    var identification_number = $.trim($('input[name="identification_number"]').val());
-    var phone = $.trim($('input[name="phone"]').val());
-    var fk_role_id = $.trim($('#fk_role_id').val());
+        var full_name = $.trim($('input[name="full_name"]').val());
+        var email = $.trim($('input[name="email"]').val());
+        var password = $.trim($('input[name="password"]').val());
+        var identification_number = $.trim($('input[name="identification_number"]').val());
+        var phone = $.trim($('input[name="phone"]').val());
+        var fk_role_id = $.trim($('#fk_role_id').val());
 
-    if (full_name === "" ||email === "" || password === "" || identification_number === "" ||phone === "" ||fk_role_id === null) {
-        alertify.error("Todos los campos son obligatorios.");
-        return;
-    }
+        if (full_name === "" || email === "" || password === "" || identification_number === "" || phone === "" || fk_role_id === null) {
+            alertify.error("Todos los campos son obligatorios.");
+            return;
+        }
 
-    addUser(full_name, email, password, identification_number, phone, fk_role_id);
+        addUser(full_name, email, password, identification_number, phone, fk_role_id);
+    });
+
 });
 
-});
 
 
 
-
+//////////////////////////////////////////////          INICIAR SESIÓN USUARIO / INICIO          //////////////////////////////////////////////
 
 function loginUser(username, password) {
     $.ajax({
         url: "../backend/login.php",
         method: "POST",
-        data: { username: username, password: password },
+        data: {username: username, password: password},
         dataType: "json",
         success: function (response) {
             if (response.status === "success") {
@@ -102,6 +101,14 @@ function loginUser(username, password) {
         },
     });
 }
+
+//////////////////////////////////////////////          INICIAR SESIÓN USUARIO / FIN          //////////////////////////////////////////////
+
+
+
+
+
+//////////////////////////////////////////////          REGISTRAR USUARIO / INICIO          //////////////////////////////////////////////
 
 function registerUser(fullName, email, password, identificationNumber, phone) {
     $.ajax({
@@ -130,6 +137,18 @@ function registerUser(fullName, email, password, identificationNumber, phone) {
         },
     });
 }
+
+//////////////////////////////////////////////          REGISTRAR USUARIO / FIN          //////////////////////////////////////////////
+
+
+
+
+
+
+
+//////////////////////////////////////////////          ADMIN BOOK / INICIO          //////////////////////////////////////////////
+///////                                               AÑADIR,EDITAR Y ELIMINAR                                              ///////
+
 
 function addbooks(title, author, publisher, publication_year, stock, cover_image, description) {
     $.ajax({
@@ -164,37 +183,6 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
 
 
 
-function addUser(full_name, email, password, identification_number, phone, fk_role_id) {
-    $.ajax({
-        url: "../backend/admin_users.php",
-        method: "POST",
-        data: {
-            full_name: full_name,
-            email: email,
-            password: password,
-            identification_number: identification_number,
-            phone: phone,
-            fk_role_id: fk_role_id
-        },
-        dataType: "json",
-        success: function (response) {
-            if (response.status === "success") {
-                alertify.success(response.message);
-                setTimeout(function () {
-                    location.reload();
-                }, 1000);
-            } else if (response.status === "error") {
-                alertify.error(response.message);
-            } else {
-                console.log("Otro error");
-                $("#result").html("<p>Error en la llamada AJAX</p>");
-            }
-        },
-        error: function () {
-            alertify.error("Ocurrió un error al registrar.");
-        }
-    });
-}
 
 
 $(document).ready(function () {
@@ -293,7 +281,7 @@ $(document).ready(function () {
         $.ajax({
             url: "../backend/get_book_by_id.php",
             method: "POST",
-            data: { id: id },
+            data: {id: id},
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -320,35 +308,75 @@ $(document).ready(function () {
 });
 
 
-    function deleteBook(id) {
-        console.log(id);
-        alertify.confirm("Eliminar libro", "¿Estás seguro de que quieres eliminar este libro?", function () {
-            $.ajax({
-                url: "../backend/delete_book.php",
-                method: "POST",
-                data: { id: id },
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    if (response.status === "success") {
-                        alertify.success("Libro eliminado con éxito.");
-                        location.reload();
-                    } else {
-                        alertify.error(response.message);
-                    }
-                },
-                error: function () {
-                    alertify.error("Error al eliminar el libro.");
+function deleteBook(id) {
+    console.log(id);
+    alertify.confirm("Eliminar libro", "¿Estás seguro de que quieres eliminar este libro?", function () {
+        $.ajax({
+            url: "../backend/delete_book.php",
+            method: "POST",
+            data: {id: id},
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                if (response.status === "success") {
+                    alertify.success("Libro eliminado con éxito.");
+                    location.reload();
+                } else {
+                    alertify.error(response.message);
                 }
-            });
-        }, function () {
-            alertify.error("Eliminación cancelada.");
+            },
+            error: function () {
+                alertify.error("Error al eliminar el libro.");
+            }
         });
-    }
+    }, function () {
+        alertify.error("Eliminación cancelada.");
+    });
+}
+
+//////////////////////////////////////////////          ADMIN BOOKS / FIN          //////////////////////////////////////////////
 
 
 
 
+
+
+//////////////////////////////////////////////          ADMIN USER / INICIO          //////////////////////////////////////////////
+///////                                               AÑADIR,EDITAR Y ELIMINAR                                              ///////
+
+
+
+function addUser(full_name, email, password, identification_number, phone, fk_role_id) {
+    $.ajax({
+        url: "../backend/admin_users.php",
+        method: "POST",
+        data: {
+            full_name: full_name,
+            email: email,
+            password: password,
+            identification_number: identification_number,
+            phone: phone,
+            fk_role_id: fk_role_id
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response.status === "success") {
+                alertify.success(response.message);
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            } else if (response.status === "error") {
+                alertify.error(response.message);
+            } else {
+                console.log("Otro error");
+                $("#result").html("<p>Error en la llamada AJAX</p>");
+            }
+        },
+        error: function () {
+            alertify.error("Ocurrió un error al registrar.");
+        }
+    });
+}
 
 
 
@@ -445,9 +473,9 @@ $(document).ready(function () {
 
     function editUser(userId) {
         $.ajax({
-            url: "../backend/get_user_by_id.php", 
+            url: "../backend/get_user_by_id.php",
             method: "POST",
-            data: { id: userId },
+            data: {id: userId},
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -469,14 +497,12 @@ $(document).ready(function () {
     }
 
 
-
-
     function deleteUser(id) {
         alertify.confirm("Eliminar usuario", "¿Estás seguro de que quieres eliminar este usuario?", function () {
             $.ajax({
                 url: "../backend/delete_users.php",
                 method: "POST",
-                data: { id: id },
+                data: {id: id},
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -497,6 +523,10 @@ $(document).ready(function () {
     }
 
 });
+
+
+//////////////////////////////////////////////          ADMIN USER / FIN          //////////////////////////////////////////////
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -611,5 +641,19 @@ $(document).ready(function () {
         $("#view-1").removeClass('d-none');
         $("#view-1").addClass('d-none');
     });
+});
+
+
+document.getElementById('mobile-toggle').addEventListener('click', function () {
+    document.querySelector('.sidebar').classList.toggle('show');
+});
+
+// También cierra el sidebar si haces clic fuera (opcional)
+document.addEventListener('click', function (e) {
+    const sidebar = document.querySelector('.sidebar');
+    const toggle = document.getElementById('mobile-toggle');
+    if (!sidebar.contains(e.target) && !toggle.contains(e.target) && sidebar.classList.contains('show')) {
+        sidebar.classList.remove('show');
+    }
 });
 

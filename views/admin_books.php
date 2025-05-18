@@ -58,8 +58,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
         <div class="nav flex-column">
             <a href="./view_admin.php" class="sidebar-link active text-decoration-none p-3">
-                <i class="fas fa-home me-3"></i>
-                <span class="hide-on-collapse">Inicio</span>
+                <i class="fas fa-area-chart me-3"></i>
+                <span class="hide-on-collapse">Estadísticas</span>
             </a>
             <a href="./add_books.php" class="sidebar-link text-decoration-none p-3">
                 <i class="fas fa-book me-3"></i>
@@ -78,9 +78,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 <i class="fas fa-box me-3"></i>
                 <span class="hide-on-collapse">Agregar usuarios</span>
             </a>
-            <a href="#" class="sidebar-link text-decoration-none p-3">
-                <i class="fas fa-gear me-3"></i>
-                <span class="hide-on-collapse">Settings</span>
+            <a href="home.php" class="sidebar-link text-decoration-none p-3">
+                <i class="fas fa-home me-3"></i>
+                <span class="hide-on-collapse">Home</span>
             </a>
         </div>
 
