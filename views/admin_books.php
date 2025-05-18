@@ -74,9 +74,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 <span class="hide-on-collapse">Usuarios</span>
             </a>
 
-            <a href="#" class="sidebar-link text-decoration-none p-3">
+            <a href="./add_users.php" class="sidebar-link text-decoration-none p-3">
                 <i class="fas fa-box me-3"></i>
-                <span class="hide-on-collapse">Products</span>
+                <span class="hide-on-collapse">Agregar usuarios</span>
             </a>
             <a href="#" class="sidebar-link text-decoration-none p-3">
                 <i class="fas fa-gear me-3"></i>
@@ -110,8 +110,71 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
         </div>
 </div>
+
+
 </main>
 
+</div>
+
+
+
+<!-- MODAL PARA EDITAR LIBRO -->
+<!-- Modal para editar libro -->
+<div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="editBookForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editBookModalLabel">Editar Libro</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Campo oculto para el id del libro -->
+          <input type="hidden" id="editBookId" name="id" />
+
+          <div class="mb-3">
+            <label for="editTitle" class="form-label">Título</label>
+            <input type="text" class="form-control" id="editTitle" name="title" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="editAuthor" class="form-label">Autor</label>
+            <input type="text" class="form-control" id="editAuthor" name="author" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="editPublisher" class="form-label">Editorial</label>
+            <input type="text" class="form-control" id="editPublisher" name="publisher" />
+          </div>
+
+          <div class="mb-3">
+            <label for="editYear" class="form-label">Año de Publicación</label>
+            <input type="number" class="form-control" id="editYear" name="publication_year" min="0" max="2100" />
+          </div>
+
+          <div class="mb-3">
+            <label for="editStock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="editStock" name="stock" min="0" />
+          </div>
+
+          <div class="mb-3">
+            <label for="editCoverImage" class="form-label">URL de Portada</label>
+            <input type="url" class="form-control" id="editCoverImage" name="cover_image" />
+          </div>
+
+          <div class="mb-3">
+            <label for="editDescription" class="form-label">Descripción</label>
+            <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 

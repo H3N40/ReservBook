@@ -9,6 +9,8 @@ $(document).ready(function () {
         loginUser(username, password);
     });
 
+
+
     $("#registerForm").submit(function (event) {
         event.preventDefault();
 
@@ -26,6 +28,8 @@ $(document).ready(function () {
 
         registerUser(fullName, email, password, identificationNumber, phone);
     });
+
+
 
     $("#booksForm").submit(function (event) {
         event.preventDefault();
@@ -49,13 +53,37 @@ $(document).ready(function () {
 
         addbooks(title, author, publisher, publication_year, stock, cover_image, description);
     });
+
+
+$("#userForm").submit(function (event) {
+    event.preventDefault();
+
+    var full_name = $.trim($('input[name="full_name"]').val());
+    var email = $.trim($('input[name="email"]').val());
+    var password = $.trim($('input[name="password"]').val());
+    var identification_number = $.trim($('input[name="identification_number"]').val());
+    var phone = $.trim($('input[name="phone"]').val());
+    var fk_role_id = $.trim($('#fk_role_id').val());
+
+    if (full_name === "" ||email === "" || password === "" || identification_number === "" ||phone === "" ||fk_role_id === null) {
+        alertify.error("Todos los campos son obligatorios.");
+        return;
+    }
+
+    addUser(full_name, email, password, identification_number, phone, fk_role_id);
 });
+
+});
+
+
+
+
 
 function loginUser(username, password) {
     $.ajax({
         url: "../backend/login.php",
         method: "POST",
-        data: {username: username, password: password},
+        data: { username: username, password: password },
         dataType: "json",
         success: function (response) {
             if (response.status === "success") {
@@ -135,6 +163,40 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
 }
 
 
+
+function addUser(full_name, email, password, identification_number, phone, fk_role_id) {
+    $.ajax({
+        url: "../backend/admin_users.php",
+        method: "POST",
+        data: {
+            full_name: full_name,
+            email: email,
+            password: password,
+            identification_number: identification_number,
+            phone: phone,
+            fk_role_id: fk_role_id
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response.status === "success") {
+                alertify.success(response.message);
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            } else if (response.status === "error") {
+                alertify.error(response.message);
+            } else {
+                console.log("Otro error");
+                $("#result").html("<p>Error en la llamada AJAX</p>");
+            }
+        },
+        error: function () {
+            alertify.error("Ocurrió un error al registrar.");
+        }
+    });
+}
+
+
 $(document).ready(function () {
     $.ajax({
         url: "../backend/get_books.php",
@@ -144,12 +206,10 @@ $(document).ready(function () {
             if (response.status === "success") {
                 var books = response.data;
 
-                // Contenedor para los libros
                 var booksContainer = $("#booksContainer");
                 booksContainer.empty();
 
                 if (books.length > 0) {
-                    // Recorrer los libros para crear la tabla de ese tamaño
                     for (var i = 0; i < books.length; i++) {
                         booksContainer.append(`
                             <div class="book-item" id="book-${books[i].id}">
@@ -165,16 +225,56 @@ $(document).ready(function () {
                         `);
                     }
 
-                    // boton de editar libros segun su id
                     $(".edit_book-btn").click(function () {
                         var bookId = $(this).data("id");
                         editBook(bookId);
                     });
 
-                    // boton de eliminar libros segun su id
                     $(".delete_book-btn").click(function () {
                         var bookId = $(this).data("id");
                         deleteBook(bookId);
+                    });
+
+
+                    $("#editBookForm").submit(function (event) {
+                        event.preventDefault();
+
+                        const bookId = $("#editBookId").val();
+                        const title = $("#editTitle").val();
+                        const author = $("#editAuthor").val();
+                        const publisher = $("#editPublisher").val();
+                        const year = $("#editYear").val();
+                        const stock = $("#editStock").val();
+                        const cover = $("#editCoverImage").val();
+                        const description = $("#editDescription").val();
+
+                        $.ajax({
+                            url: "../backend/update_book.php",
+                            method: "POST",
+                            data: {
+                                id: bookId,
+                                title: title,
+                                author: author,
+                                publisher: publisher,
+                                publication_year: year,
+                                stock: stock,
+                                cover_image: cover,
+                                description: description
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.status === "success") {
+                                    alertify.success("Libro actualizado correctamente");
+                                    $("#editBookModal").modal("hide");
+                                    location.reload();
+                                } else {
+                                    alertify.error(response.message);
+                                }
+                            },
+                            error: function () {
+                                alertify.error("Error al actualizar el libro.");
+                            }
+                        });
                     });
 
                 } else {
@@ -190,9 +290,35 @@ $(document).ready(function () {
     });
 
     function editBook(id) {
+        $.ajax({
+            url: "../backend/get_book_by_id.php",
+            method: "POST",
+            data: { id: id },
+            dataType: "json",
+            success: function (response) {
+                if (response.status === "success") {
+                    const book = response.data;
+                    $("#editBookId").val(book.id);
+                    $("#editTitle").val(book.title);
+                    $("#editAuthor").val(book.author);
+                    $("#editPublisher").val(book.publisher);
+                    $("#editYear").val(book.publication_year);
+                    $("#editStock").val(book.stock);
+                    $("#editCoverImage").val(book.cover_image);
+                    $("#editDescription").val(book.description);
 
-
+                    $("#editBookModal").modal("show");
+                } else {
+                    alertify.error("No se encontró el libro.");
+                }
+            },
+            error: function () {
+                alertify.error("Error al buscar el libro.");
+            }
+        });
     }
+});
+
 
     function deleteBook(id) {
         console.log(id);
@@ -200,7 +326,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "../backend/delete_book.php",
                 method: "POST",
-                data: {id: id},
+                data: { id: id },
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -221,7 +347,9 @@ $(document).ready(function () {
     }
 
 
-});
+
+
+
 
 
 $(document).ready(function () {
@@ -317,9 +445,9 @@ $(document).ready(function () {
 
     function editUser(userId) {
         $.ajax({
-            url: "../backend/get_user_by_id.php", // Nuevo backend que te mostraré abajo
+            url: "../backend/get_user_by_id.php", 
             method: "POST",
-            data: {id: userId},
+            data: { id: userId },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -341,12 +469,14 @@ $(document).ready(function () {
     }
 
 
+
+
     function deleteUser(id) {
         alertify.confirm("Eliminar usuario", "¿Estás seguro de que quieres eliminar este usuario?", function () {
             $.ajax({
                 url: "../backend/delete_users.php",
                 method: "POST",
-                data: {id: id},
+                data: { id: id },
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -410,7 +540,7 @@ $(document).ready(function () {
             if (response.status === "success") {
                 var accessData = response.data;
 
-                // Mapear fechas y accesos
+
                 var dates = accessData.map(function (item) {
                     return item.access_date;
                 });
@@ -418,32 +548,32 @@ $(document).ready(function () {
                     return item.total;
                 });
 
-                // Seleccionar el contexto del canvas
+
                 var ctx = document.getElementById("accessChart").getContext("2d");
 
-                // Crear el gráfico
+
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: dates, // Fechas en el eje X
+                        labels: dates,
                         datasets: [{
                             label: 'Accesos por día',
-                            data: totals, // Totales de accesos en el eje Y
-                            borderColor: 'rgba(75, 192, 192, 1)', // Color de la línea
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de fondo
-                            fill: true, // Rellenar el área bajo la línea
+                            data: totals,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            fill: true,
                         }]
                     },
                     options: {
                         responsive: true,
                         plugins: {
                             legend: {
-                                position: 'top', // Ubicación de la leyenda
+                                position: 'top',
                             },
                             tooltip: {
                                 callbacks: {
                                     label: function (tooltipItem) {
-                                        return tooltipItem.raw + " accesos"; // Mostrar accesos en el tooltip
+                                        return tooltipItem.raw + " accesos";
                                     }
                                 }
                             }
@@ -452,13 +582,13 @@ $(document).ready(function () {
                             x: {
                                 title: {
                                     display: true,
-                                    text: 'Fecha' // Título del eje X
+                                    text: 'Fecha'
                                 }
                             },
                             y: {
                                 title: {
                                     display: true,
-                                    text: 'Número de accesos' // Título del eje Y
+                                    text: 'Número de accesos'
                                 }
                             }
                         }

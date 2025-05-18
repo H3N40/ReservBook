@@ -74,9 +74,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 <span class="hide-on-collapse">Usuarios</span>
             </a>
 
-            <a href="#" class="sidebar-link text-decoration-none p-3">
+            <a href="./add_users.php" class="sidebar-link text-decoration-none p-3">
                 <i class="fas fa-box me-3"></i>
-                <span class="hide-on-collapse">Products</span>
+                <span class="hide-on-collapse">Agregar usuarios</span>
             </a>
             <a href="#" class="sidebar-link text-decoration-none p-3">
                 <i class="fas fa-gear me-3"></i>
