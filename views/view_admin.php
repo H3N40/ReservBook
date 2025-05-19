@@ -44,8 +44,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
 
-    <div class="d-flex">
-        <nav class="sidebar d-flex flex-column flex-shrink-0 position-fixed">
+    <div class="d-flex flex-wrap">
+        <nav class="sidebar d-flex flex-wrap flex-column flex-shrink-0 position-fixed">
             <button class="toggle-btn">
                 <i class="fas fa-chevron-left"></i>
             </button>
@@ -85,7 +85,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </div>
 
             <div class="profile-section mt-auto p-1">
-                <div class="d-flex align-items-center">
+                <div class="d-flex flex-wrap align-items-center">
                     <img src="https://randomuser.me/api/portraits/women/70.jpg" style="height:60px"
                         class="rounded-circle" alt="Profile">
                     <div class="ms-3 profile-info">

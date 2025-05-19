@@ -8,7 +8,9 @@ body {
 }
 
 .sidebar {
-    width: var(--sidebar-width);
+    width: 100%;
+    max-width: var(--sidebar-width);
+
     height: 100vh;
     background-color: rgb(228, 213, 183);
     transition: all 0.3s ease;
@@ -337,6 +339,26 @@ footer {
 
 .logo {
     width: 50px;
+}
+
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: var(--sidebar-width-collapsed) !important;
+    }
+
+    .main-content {
+        margin-left: var(--sidebar-width-collapsed) !important;
+    }
+
+    .toggle-btn {
+        display: none; 
+    }
+
+    .hide-on-collapse {
+        display: none;
+    }
 }
 
 

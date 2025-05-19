@@ -203,3 +203,26 @@ button {
     background-color: #f0f0f0;
     padding: 5px 20px;
 }
+
+
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: var(--sidebar-width-collapsed) !important;
+    }
+
+    .main-content {
+        margin-left: var(--sidebar-width-collapsed) !important;
+    }
+
+    .toggle-btn {
+        display: none; 
+    }
+
+    .hide-on-collapse {
+        display: none;
+    }
+}
+
+

@@ -119,7 +119,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 
 <!-- MODAL PARA EDITAR LIBRO -->
-<!-- Modal para editar libro -->
 <div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form id="editBookForm">
