@@ -105,7 +105,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </div>
 
             <div id="booksContainer">
-                <!-- Aquí se cargarán los libros dinámicamente -->
+                <!-- Aquí se cargaran los libros dinámicamente -->
             </div>
 
         </div>
@@ -128,7 +128,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <!-- Campo oculto para el id del libro -->
           <input type="hidden" id="editBookId" name="id" />
 
           <div class="mb-3">

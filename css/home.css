@@ -1,203 +1,178 @@
-/* Estilos generales */
-:root {
-    --sidebar-width: 280px;
-    --sidebar-width-collapsed: 80px;
-}
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     background-color: #f8f9fa;
-    overflow-x: hidden;
 }
 
-/* Estilos para la sidebar */
-.sidebar {
-    width: var(--sidebar-width);
-    height: 100vh;
-    background-color: rgb(228, 213, 183);
-    transition: all 0.3s ease;
+.back-color {
+    background-color: #0069A3;
 }
 
-.sidebar.collapsed {
-    width: var(--sidebar-width-collapsed);
+header {
+    padding: 10px 0;
 }
 
-.sidebar-link {
-    color: #000000;
-    transition: all 0.2s ease;
-    border-radius: 8px;
-    margin: 4px 16px;
-    white-space: nowrap;
-    overflow: hidden;
+.navbar-brand img {
+    max-width: 100%;
+    height: auto;
 }
 
-.sidebar-link:hover, .sidebar-link.active {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
+.btn-search, .btn-login, .btn-register {
+    border-color: #fff;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.sidebar-link:hover {
-    transform: translateX(5px);
+.btn-search:hover, .btn-login:hover, .btn-register:hover {
+    background-color: #fff;
+    color: #0069A3;
 }
 
-.profile-section {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+.hero-section {
+    padding: 100px 0;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.main-content {
-    margin-left: var(--sidebar-width);
-    min-height: 100vh;
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-
-.collapsed ~ .main-content {
-    margin-left: var(--sidebar-width-collapsed);
-}
-
-.toggle-btn {
-    position: absolute;
-    right: -15px;
-    top: 20px;
-    background: white;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    border: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    z-index: 100;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.collapsed .toggle-btn {
-    transform: rotate(180deg);
-}
-
-.collapsed .hide-on-collapse {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.collapsed .profile-info {
-    opacity: 0;
-}
-
-.collapsed .sidebar-link {
-    text-align: center;
-    padding: 1rem !important;
-    margin: 4px 8px;
-}
-
-.collapsed .sidebar-link i {
-    margin: 0 !important;
-}
-
-.profile-info {
-    transition: opacity 0.2s ease;
-}
-
-.background-img {
-    position: absolute;
-    top: 0;
-    left: var(--sidebar-width);
-    width: calc(100% - var(--sidebar-width));
-    height: 100vh;
-    object-fit: cover;
-    opacity: 0.72;
-    z-index: -1;
-}
-
-/* Estilos para la lista de usuarios */
-.container {
-    width: 100%;
-    margin: 0 auto;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.header h1 {
-    font-size: 30px;
+.hero-section h1 {
+    font-size: 3rem;
     font-weight: bold;
-    margin-bottom: 20px;
     color: #333;
 }
 
-.user-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
+.hero-section p {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.hero-section .btn-primary {
+    background-color: #0069A3;
+    border-color: #0069A3;
+    padding: 10px 30px;
+    font-size: 1.2rem;
+}
+
+.hero-section .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.features-section {
+    padding: 50px 0;
+}
+
+.features-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.feature-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0069A3;
     margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
 }
 
-.user-item:hover {
-    transform: translateY(-2px);
+.feature-card p {
+    font-size: 1rem;
+    color: #555;
 }
 
-.user-content {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
+footer {
+    background-color: #0069A3;
+    padding: 20px 0;
 }
 
-.user-avatar {
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .d-flex {
+        width: 100%;
+    }
+
+    .btn-login, .btn-register {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .hero-section {
+        padding: 50px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1.2rem;
+    }
+
+    .features-section h2 {
+        font-size: 2rem;
+    }
+
+    .feature-card {
+        margin-bottom: 20px;
+    }
+}
+
+.books {
+    color: #f8f9fa;
+}
+
+.logo {
     width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 20px;
-    object-fit: cover;
 }
 
-.user-info {
-    flex-grow: 1;
+
+.container-txt{
+    color: #000000;
 }
 
-.user-name {
-    font-weight: 600;
-    margin-bottom: 5px;
-}
 
-.user-email {
-    color: #666;
-    font-size: 0.9em;
-}
 
-.user-actions {
-    display: flex;
-    gap: 10px;
-}
 
-.btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.2s;
-}
 
-.edit-btn {
-    background-color: #e4d5b7;
-    color: #000;
-}
+.banner {
+    background-color: #f7e04b; 
+    align-items: center;
+  }
+  
+  .text-box {
+    padding-left: 50px;
+  }
+  
+  .text-box h1 {
+    font-size: 120px; 
+    font-weight: bold; 
 
-.edit-btn:hover {
-    background-color: #d4c5a6;
-}
+  }
+  
+  .text-box p {
+    font-size: 32px; 
+  }
 
-.delete-btn {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-.delete-btn:hover {
-    background-color: #e8c7ca;
+  .logo {
+    width: 50px;
 }

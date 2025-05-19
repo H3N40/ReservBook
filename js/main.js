@@ -277,6 +277,68 @@ $(document).ready(function () {
         }
     });
 
+
+
+$(document).ready(function () {
+    // Función para cargar y mostrar los libros en el home
+    function loadBooksForHome() {
+        $.ajax({
+            url: "../backend/get_books.php",
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                if (response.status === "success") {
+                    var books = response.data;
+                    var booksContainer = $("#booksHomeContainer"); // Cambia este ID según tu estructura HTML
+                    
+                    booksContainer.empty(); // Limpiamos el contenedor
+
+                    if (books.length > 0) {
+                        // Creamos una fila para organizar los libros
+                        var row = $('<div class="row"></div>');
+                        
+                        for (var i = 0; i < books.length; i++) {
+                            // Creamos la tarjeta para cada libro
+                            var bookCard = `
+                                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                                    <div class="card h-100">
+                                        <img src="${books[i].cover_image}" class="card-img-top" alt="${books[i].title}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${books[i].title}</h5>
+                                            <p class="card-text">${books[i].author}</p>
+                                            <a href="book_details.php?id=${books[i].id}" class="btn btn-primary">Ver Detalles</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            // Agregamos la tarjeta a la fila
+                            row.append(bookCard);
+                        }
+                        
+                        // Agregamos la fila al contenedor
+                        booksContainer.append(row);
+                    } else {
+                        booksContainer.html('<div class="alert alert-info">No hay libros disponibles en este momento.</div>');
+                    }
+                } else {
+                    console.error("Error al obtener los libros:", response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error de conexión al servidor:", error);
+                $("#booksHomeContainer").html('<div class="alert alert-danger">Error al cargar los libros. Por favor intenta más tarde.</div>');
+            }
+        });
+    }
+
+    // Llamamos a la función al cargar la página
+    loadBooksForHome();
+});
+
+
+
+
     function editBook(id) {
         $.ajax({
             url: "../backend/get_book_by_id.php",
