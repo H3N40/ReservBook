@@ -34,10 +34,7 @@ body {
     transform: translateX(5px);
 }
 
-.sidebar-link.active {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
-}
+
 
 .logo-text {
     background: linear-gradient(45deg, #6b8cff, #8b9fff);
@@ -101,11 +98,6 @@ body {
     opacity: 0;
 }
 
-.collapsed .sidebar-link {
-    text-align: center;
-    padding: 1rem !important;
-    margin: 4px 8px;
-}
 
 .collapsed .sidebar-link i {
     margin: 0 !important;
@@ -163,19 +155,6 @@ body {
 
 .butt:hover {
     background-color: #0056b3;
-}
-
-/* Botón volver */
-.btn-back {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.btn-back:hover {
-    background-color: #218838;
 }
 
 
@@ -359,5 +338,6 @@ footer {
 .logo {
     width: 50px;
 }
+
 
 

@@ -648,12 +648,8 @@ document.getElementById('mobile-toggle').addEventListener('click', function () {
     document.querySelector('.sidebar').classList.toggle('show');
 });
 
-// También cierra el sidebar si haces clic fuera (opcional)
-document.addEventListener('click', function (e) {
-    const sidebar = document.querySelector('.sidebar');
-    const toggle = document.getElementById('mobile-toggle');
-    if (!sidebar.contains(e.target) && !toggle.contains(e.target) && sidebar.classList.contains('show')) {
-        sidebar.classList.remove('show');
-    }
-});
+
+
+
+
 

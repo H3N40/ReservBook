@@ -133,8 +133,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 </button>
             </div>
 
-
-
     </div>
 
 
@@ -156,8 +154,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/main.js"></script>
-
-</body>
 
 </body>
 
