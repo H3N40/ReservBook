@@ -60,8 +60,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         </ul>
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="btn btn-outline-light me-2 btn-logout" href="../backend/logout.php">Cerrar
-                                    sesión</a>
+                                <a class="btn btn-outline-light me-2 btn-logout" href="../backend/logout.php">Cerrar sesión</a>
                             </li>
                             <li class="nav-item">
                                 <a class="btn btn-outline-light me-2 btn-admin" href="../views/view_admin.php">Vista
@@ -121,7 +120,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 
     </div> <!-- Fin fila 4 -->
-    </div>
     <br>
     <br>
     <br>

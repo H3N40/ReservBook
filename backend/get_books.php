@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 require_once './config.php';
 
 class GetBooks {
@@ -10,15 +11,22 @@ class GetBooks {
     }
 
     public function getAllBooks() {
-        $sql = "SELECT * FROM books";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            $sql = "SELECT * FROM books";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return ['error' => true, 'message' => $e->getMessage()];
+        }
     }
 }
 
 $getBooks = new GetBooks();
 $books = $getBooks->getAllBooks();
 
-echo json_encode(['status' => 'success', 'data' => $books]);
+if (isset($books['error'])) {
+    echo json_encode(['status' => 'error', 'message' => $books['message']]);
+} else {
+    echo json_encode(['status' => 'success', 'data' => $books]);
+}
