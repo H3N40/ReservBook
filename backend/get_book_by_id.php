@@ -7,7 +7,7 @@ if (isset($_POST['id'])) {
     $db = new DbConfig();
     $conn = $db->getConnection();
 
-    $sql = "SELECT id, title, author, publisher, publication_year, stock, cover_image, description FROM books WHERE id = ?";
+    $sql = "SELECT * FROM books WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
     $book = $stmt->fetch(PDO::FETCH_ASSOC);

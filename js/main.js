@@ -80,7 +80,7 @@ function loginUser(username, password) {
     $.ajax({
         url: "../backend/login.php",
         method: "POST",
-        data: {username: username, password: password},
+        data: { username: username, password: password },
         dataType: "json",
         success: function (response) {
             if (response.status === "success") {
@@ -264,10 +264,9 @@ $(document).ready(function () {
         }
     });
 
-//////////////////////////////////////////////          MOSTRAR LIBROS EN EL HOME / INICIO          //////////////////////////////////////////////
+    //////////////////////////////////////////////          MOSTRAR LIBROS EN EL HOME / INICIO          //////////////////////////////////////////////
 
     $(document).ready(function () {
-        // Función para cargar y mostrar los libros en el home
         function loadBooksForHome() {
             $.ajax({
                 url: "../backend/get_books.php",
@@ -313,9 +312,14 @@ $(document).ready(function () {
         loadBooksForHome();
 
 
+        //////////////////////////////////////////////          MOSTRAR LIBROS EN EL HOME / FIN          //////////////////////////////////////////////
+
+
+        //////////////////////////////////////////////          MOSTRAR LIBROS EN EL INDEX / INICIO          //////////////////////////////////////////////
+
         function loadBooksForIndex() {
             $.ajax({
-                url: "backend/get_books.php",
+                url: "../backend/get_books.php",
                 method: "GET",
                 dataType: "json",
                 success: function (response) {
@@ -359,20 +363,14 @@ $(document).ready(function () {
     });
 
 
-//////////////////////////////////////////////          MOSTRAR LIBROS EN EL HOME / FIN          //////////////////////////////////////////////
-
-
-//////////////////////////////////////////////          MOSTRAR LIBROS EN EL INDEX / INICIO          //////////////////////////////////////////////
-
-
-//////////////////////////////////////////////          MOSTRAR LIBROS EN EL INDEX / FIN          //////////////////////////////////////////////
+    //////////////////////////////////////////////          MOSTRAR LIBROS EN EL INDEX / FIN          //////////////////////////////////////////////
 
 
     function editBook(id) {
         $.ajax({
             url: "../backend/get_book_by_id.php",
             method: "POST",
-            data: {id: id},
+            data: { id: id },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -405,7 +403,7 @@ function deleteBook(id) {
         $.ajax({
             url: "../backend/delete_book.php",
             method: "POST",
-            data: {id: id},
+            data: { id: id },
             dataType: "json",
             success: function (response) {
                 console.log(response);
@@ -427,6 +425,72 @@ function deleteBook(id) {
 
 //////////////////////////////////////////////          ADMIN BOOKS / FIN          //////////////////////////////////////////////
 
+//////////////////////////////////////////////          BOOKS DETAILS / INICIO     //////////////////////////////////////////////
+
+
+
+
+$(document).ready(function () {
+    function loadBookDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const bookId = params.get("id");
+
+        if (!bookId) {
+            $("#bookDetailsContainer").html('<div class="alert alert-danger">ID de libro no proporcionado.</div>');
+            return;
+        }
+
+        $.ajax({
+            url: "../backend/get_book_by_id.php",
+            method: "POST",
+            data: { id: bookId },
+            dataType: "json",
+            success: function (response) {
+                if (response.status === "success") {
+                    const book = response.data;
+
+                    const card = `
+                    <div class="card mb-3 mx-auto" style="max-width: 700px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="${book.cover_image || 'default_cover.jpg'}" class="img-fluid rounded-start" alt="${book.title}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">${book.title}</h5>
+                                    <p><strong>Autor:</strong> ${book.author}</p>
+                                    <p><strong>Editorial:</strong> ${book.publisher}</p>
+                                    <p><strong>Año:</strong> ${book.publication_year}</p>
+                                    <p><strong>Descripción:</strong> ${book.description}</p>
+                                    <p><strong>Estado:</strong> ${book.stock > 0 ? "Disponible" : "Agotado"}</p>
+                                    <a href="../views/home.php" class="btn btn-secondary">Volver</a>
+                                    ${book.stock > 0 
+                                        ? `<a href="../reserve.php?id=${book.id}" class="btn btn-primary">Reservar</a>` 
+                                        : ""}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    $("#bookDetailsContainer").html(card);
+                } else {
+                    $("#bookDetailsContainer").html(`<div class="alert alert-danger">${response.message}</div>`);
+                }
+            },
+            error: function () {
+                $("#bookDetailsContainer").html('<div class="alert alert-danger">Error al cargar los detalles del libro.</div>');
+            }
+        });
+    }
+
+    loadBookDetails();
+});
+
+
+
+
+//////////////////////////////////////////////          BOOKS DETAILS / FIN         //////////////////////////////////////////////
 
 //////////////////////////////////////////////          ADMIN USER / INICIO          //////////////////////////////////////////////
 ///////                                               AÑADIR,EDITAR Y ELIMINAR                                              ///////
@@ -560,7 +624,7 @@ $(document).ready(function () {
         $.ajax({
             url: "../backend/get_user_by_id.php",
             method: "POST",
-            data: {id: userId},
+            data: { id: userId },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -587,7 +651,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "../backend/delete_users.php",
                 method: "POST",
-                data: {id: id},
+                data: { id: id },
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -709,7 +773,7 @@ $(document).ready(function () {
                     }
                 });
 
-                // Mostrar el gráfico después de cargar los datos
+   
                 $('#view-1-chart').removeClass('d-none');
             } else {
                 alertify.error("Error al obtener los datos de acceso.");
@@ -720,7 +784,6 @@ $(document).ready(function () {
         }
     });
 
-    // Controlar la visibilidad de las vistas con el botón
     $("#next-view").click(function () {
         $("#view-1").removeClass('d-none');
         $("#view-1").addClass('d-none');

@@ -150,8 +150,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 <!-- SCRIPTS DE BOOTSTRAP -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
-</html>
 
 
 <!-- Optional JavaScript; choose one of the two! -->
