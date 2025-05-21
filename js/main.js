@@ -80,7 +80,7 @@ function loginUser(username, password) {
     $.ajax({
         url: "../backend/login.php",
         method: "POST",
-        data: {username: username, password: password},
+        data: { username: username, password: password },
         dataType: "json",
         success: function (response) {
             if (response.status === "success") {
@@ -159,7 +159,7 @@ function addbooks(title, author, publisher, publication_year, stock, cover_image
             if (response.status === "success") {
                 alertify.success("El libro se ha ingresado correctamente");
                 setTimeout(function () {
-                    location.reload(); // Recarga la página
+                    location.reload();
                 }, 1000);
             } else if (response.status === "error") {
                 alertify.error(response.message);
@@ -277,12 +277,11 @@ $(document).ready(function () {
                         var books = response.data;
                         var booksContainer = $("#booksHomeContainer");
                         booksContainer.empty();
-
                         if (books.length > 0) {
-                            var row = $('<div class="row"></div>');
+                            var row = $('<div class="row row-cols-2 row-cols-lg-5 g-4"></div>');
                             for (var i = 0; i < books.length; i++) {
                                 row.append(`
-                                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                               
                                     <div class="card h-100">
                                         <img src="${books[i].cover_image}" class="card-img-top" alt="${books[i].title}">
                                         <div class="card-body">
@@ -291,7 +290,6 @@ $(document).ready(function () {
                                             <a href="book_details.php?id=${books[i].id}" class="btn btn-primary">Ver Detalles</a>
                                         </div>
                                     </div>
-                                </div>
                             `);
                             }
                             booksContainer.append(row);
@@ -329,10 +327,9 @@ $(document).ready(function () {
                         booksContainer.empty();
 
                         if (books.length > 0) {
-                            var row = $('<div class="row"></div>');
+                            var row = $('<div class="row row-cols-2 row-cols-lg-5 g-4"></div>');
                             for (var i = 0; i < books.length; i++) {
                                 row.append(`
-                                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
                                     <div class="card h-100">
                                         <img src="${books[i].cover_image}" class="card-img-top" alt="${books[i].title}">
                                         <div class="card-body">
@@ -341,7 +338,6 @@ $(document).ready(function () {
                                             <a href="./views/login.html" class="btn btn-primary">Ver Detalles</a>
                                         </div>
                                     </div>
-                                </div>
                             `);
                             }
                             booksContainer.append(row);
@@ -370,7 +366,7 @@ $(document).ready(function () {
         $.ajax({
             url: "../backend/get_book_by_id.php",
             method: "POST",
-            data: {id: id},
+            data: { id: id },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -403,7 +399,7 @@ function deleteBook(id) {
         $.ajax({
             url: "../backend/delete_book.php",
             method: "POST",
-            data: {id: id},
+            data: { id: id },
             dataType: "json",
             success: function (response) {
                 console.log(response);
@@ -441,37 +437,12 @@ $(document).ready(function () {
         $.ajax({
             url: "../backend/get_book_by_id.php",
             method: "POST",
-            data: {id: bookId},
+            data: { id: bookId },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
                     const book = response.data;
-
-                    const card = `
-                    <div class="card mb-3 mx-auto" style="max-width: 700px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="${book.cover_image || 'default_cover.jpg'}" class="img-fluid rounded-start" alt="${book.title}">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">${book.title}</h5>
-                                    <p><strong>Autor:</strong> ${book.author}</p>
-                                    <p><strong>Editorial:</strong> ${book.publisher}</p>
-                                    <p><strong>Año:</strong> ${book.publication_year}</p>
-                                    <p><strong>Descripción:</strong> ${book.description}</p>
-                                    <p><strong>Estado:</strong> ${book.stock > 0 ? "Disponible" : "Agotado"}</p>
-                                    <a href="../views/home.php" class="btn btn-secondary">Volver</a>
-                                    ${book.stock > 0
-                        ? `<button class="btn btn-primary" id="reserveBookBtn" data-book-id="${book.id}">Reservar</button>`
-                        : ""}
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                    `;
-
-                    $("#bookDetailsContainer").html(card);
+                    renderBookDetails(book);
                 } else {
                     $("#bookDetailsContainer").html(`<div class="alert alert-danger">${response.message}</div>`);
                 }
@@ -482,41 +453,103 @@ $(document).ready(function () {
         });
     }
 
+
+    function renderBookDetails(book) {
+        const card = `
+        <div class="container-fluid full-screen-book">
+            <div class="row g-0">
+                <!-- Columna de la portada -->
+                <div class="col-lg-6 book-cover-container">
+                    <img src="${book.cover_image || 'default_cover.jpg'}" class="book-cover-img" alt="${book.title}">
+                </div>
+                
+                <!-- Columna de detalles -->
+                <div class="col-lg-6 book-details-container">
+                    <h1 class="book-title">${book.title}</h1>
+                    
+                    <div class="book-meta">
+                        <p><strong>Autor:</strong> ${book.author || 'No especificado'}</p>
+                        <p><strong>Editorial:</strong> ${book.publisher || 'No especificada'}</p>
+                        <p><strong>Año de publicación:</strong> ${book.publication_year || 'No especificado'}</p>
+                        <p><strong>Estado:</strong> 
+                            <span class="availability-badge badge ${book.stock > 0 ? 'bg-success' : 'bg-danger'}">
+                                ${book.stock > 0 ? "Disponible" : "Agotado"}
+                            </span>
+                        </p>
+                    </div>
+                    
+                    <div class="book-description">
+                        <h5>Descripción</h5>
+                        <p>${book.description || 'No hay descripción disponible.'}</p>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="../views/home.php" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-arrow-left me-2"></i>Volver al catálogo
+                        </a>
+                        ${book.stock > 0
+                            ? `<button class="btn btn-primary btn-lg" id="reserveBookBtn" data-book-id="${book.id}">
+                                <i class="bi bi-bookmark-check me-2"></i>Reservar libro
+                               </button>`
+                            : ''}
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+
+        $("#bookDetailsContainer").html(card);
+    }
+
+
     $(document).on('click', '#reserveBookBtn', function () {
         const bookId = $(this).data('book-id');
 
-        alertify.confirm('Confirmar reserva', '¿Estás seguro de que deseas reservar este libro?',
+        alertify.confirm(
+            'Confirmar reserva',
+            '¿Estás seguro de que deseas reservar este libro?',
             function () {
-                // Usuario confirmó
-                $.ajax({
-                    url: '../backend/reserve.php',
-                    method: 'POST',
-                    data: {book_id: bookId},
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.status === 'success') {
-                            alertify.success(response.message);
-                        } else {
-                            alertify.error(response.message);
-                        }
-                    },
-                    error: function () {
-                        alertify.error('Error en la solicitud de reserva.');
-                    }
-                });
+                reserveBook(bookId);
             },
             function () {
-                // Usuario canceló
                 alertify.message('Reserva cancelada');
             }
-        ).set('labels', {ok: 'Sí, reservar', cancel: 'Cancelar'});
+        ).set('labels', { ok: 'Confirmar reserva', cancel: 'Cancelar' });
     });
 
 
+    function reserveBook(bookId) {
+        $.ajax({
+            url: '../backend/reserve.php',
+            method: 'POST',
+            data: { book_id: bookId },
+            dataType: 'json',
+            beforeSend: function() {
+                alertify.message('Procesando reserva...');
+            },
+            success: function (response) {
+                if (response.status === 'success') {
+                    alertify.success(response.message);
+
+                    $('.availability-badge')
+                        .removeClass('bg-success')
+                        .addClass('bg-secondary')
+                        .text('Reservado');
+                    $('#reserveBookBtn').remove();
+                } else {
+                    alertify.error(response.message);
+                }
+            },
+            error: function () {
+                alertify.error('Error en la solicitud de reserva. Intente nuevamente.');
+            }
+        });
+    }
 
 
     loadBookDetails();
 });
+
 //////////////////////////////////////////////          BOOKS DETAILS / FIN         //////////////////////////////////////////////
 
 
@@ -577,7 +610,7 @@ $(document).on('click', '.markBorrowedBtn', function () {
     $.ajax({
         url: '../backend/mark_borrowed.php',
         method: 'POST',
-        data: {reserva_id: reservaId},
+        data: { reserva_id: reservaId },
         dataType: 'json',
         success: function (response) {
             if (response.status === 'success') {
@@ -590,7 +623,6 @@ $(document).on('click', '.markBorrowedBtn', function () {
     });
 });
 
-// Botón: Cancelar reserva
 $(document).on('click', '.cancelReservationBtn', function () {
     const reservaId = $(this).data('id');
 
@@ -598,11 +630,10 @@ $(document).on('click', '.cancelReservationBtn', function () {
         'Cancelar reserva',
         '¿Estás seguro de que deseas cancelar esta reserva?',
         function () {
-            // Si el usuario confirma
             $.ajax({
                 url: '../backend/cancel_reservation.php',
                 method: 'POST',
-                data: {reserva_id: reservaId},
+                data: { reserva_id: reservaId },
                 dataType: 'json',
                 success: function (response) {
                     if (response.status === 'success') {
@@ -618,7 +649,6 @@ $(document).on('click', '.cancelReservationBtn', function () {
             });
         },
         function () {
-            // Si el usuario cancela
             alertify.message('Cancelación de reserva abortada');
         }
     );
@@ -642,7 +672,7 @@ function loadBorrowedBooks() {
         url: '../backend/get_borrowed_books.php',
         method: 'GET',
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             if (response.status === 'success') {
                 let html = `
                     <h3 class="mt-4">Libros prestados</h3>
@@ -677,7 +707,7 @@ function loadBorrowedBooks() {
                 $('#borrowedBooksContainer').html(`<div class="alert alert-danger">${response.message}</div>`);
             }
         },
-        error: function() {
+        error: function () {
             $('#borrowedBooksContainer').html(`<div class="alert alert-danger">Error al cargar libros prestados</div>`);
         }
     });
@@ -685,7 +715,7 @@ function loadBorrowedBooks() {
 
 loadBorrowedBooks();
 
-// Evento para marcar como devuelto
+
 $(document).on('click', '.markReturnedBtn', function () {
     const reservaId = $(this).data('id');
 
@@ -694,7 +724,7 @@ $(document).on('click', '.markReturnedBtn', function () {
         method: 'POST',
         data: { reserva_id: reservaId },
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             if (response.status === 'success') {
                 alertify.success(response.message);
                 loadBorrowedBooks();
@@ -702,7 +732,7 @@ $(document).on('click', '.markReturnedBtn', function () {
                 alertify.error(response.message);
             }
         },
-        error: function() {
+        error: function () {
             alertify.error('Error al marcar como devuelto');
         }
     });
@@ -761,12 +791,12 @@ $(document).ready(function () {
             if (response.status === "success") {
                 var users = response.data;
 
-                // Contenedor para los usuarios
+       
                 var usersContainer = $("#usersContainer");
                 usersContainer.empty();
 
                 if (users.length > 0) {
-                    // Recorrer los usuarios para crear la tabla de ese tamaño
+           
                     for (var i = 0; i < users.length; i++) {
                         usersContainer.append(`
                             <div class="user-item" id="user-${users[i].user_id}">
@@ -783,14 +813,14 @@ $(document).ready(function () {
 
                     }
 
-                    // Botón de editar usuario según su id
+
                     $(".edit_user-btn").click(function () {
                         var userId = $(this).data("id");
                         editUser(userId);
                     });
 
 
-                    // Botón de eliminar usuario según su id
+
                     $(".delete_user-btn").click(function () {
                         var userId = $(this).data("id");
                         deleteUser(userId);
@@ -847,7 +877,7 @@ $(document).ready(function () {
         $.ajax({
             url: "../backend/get_user_by_id.php",
             method: "POST",
-            data: {id: userId},
+            data: { id: userId },
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -857,7 +887,7 @@ $(document).ready(function () {
                     $("#editEmail").val(user.email);
                     $("#editPhone").val(user.phone);
 
-                    $("#editUserModal").modal("show"); // Mostrar modal
+                    $("#editUserModal").modal("show");
                 } else {
                     alertify.error("No se encontró el usuario.");
                 }
@@ -874,7 +904,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "../backend/delete_users.php",
                 method: "POST",
-                data: {id: id},
+                data: { id: id },
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -912,27 +942,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const views = document.querySelectorAll(".view-section");
-    const nextButton = document.getElementById("next-view");
-    let currentIndex = 0;
-
-    if (nextButton && views.length > 0) {
-        nextButton.addEventListener("click", function () {
-            // Ocultar la vista actual
-            views[currentIndex].classList.add("d-none");
-
-            // Calcular el siguiente índice
-            currentIndex = (currentIndex + 1) % views.length;
-
-            // Mostrar la nueva vista
-            views[currentIndex].classList.remove("d-none");
-        });
-    }
-});
 
 
 $(document).ready(function () {
+
     $.ajax({
         url: "../backend/get_access_data.php",
         method: "GET",
@@ -941,17 +954,10 @@ $(document).ready(function () {
             if (response.status === "success") {
                 var accessData = response.data;
 
-
-                var dates = accessData.map(function (item) {
-                    return item.access_date;
-                });
-                var totals = accessData.map(function (item) {
-                    return item.total;
-                });
-
+                var dates = accessData.map(item => item.access_date);
+                var totals = accessData.map(item => item.total);
 
                 var ctx = document.getElementById("accessChart").getContext("2d");
-
 
                 new Chart(ctx, {
                     type: 'line',
@@ -968,34 +974,19 @@ $(document).ready(function () {
                     options: {
                         responsive: true,
                         plugins: {
-                            legend: {
-                                position: 'top',
-                            },
+                            legend: { position: 'top' },
                             tooltip: {
                                 callbacks: {
-                                    label: function (tooltipItem) {
-                                        return tooltipItem.raw + " accesos";
-                                    }
+                                    label: tooltipItem => tooltipItem.raw + " accesos"
                                 }
                             }
                         },
                         scales: {
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Fecha'
-                                }
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Número de accesos'
-                                }
-                            }
+                            x: { title: { display: true, text: 'Fecha' } },
+                            y: { title: { display: true, text: 'Número de accesos' } }
                         }
                     }
                 });
-
 
                 $('#view-1-chart').removeClass('d-none');
             } else {
@@ -1007,19 +998,63 @@ $(document).ready(function () {
         }
     });
 
-    $("#next-view").click(function () {
-        $("#view-1").removeClass('d-none');
-        $("#view-1").addClass('d-none');
+
+
+    $.ajax({
+        url: "../backend/get_reservations_data.php",
+        method: "GET",
+        dataType: "json",
+        success: function (response) {
+            if (response.status === "success") {
+                var reservationData = response.data;
+
+                var dates = reservationData.map(item => item.reservation_date);
+                var totals = reservationData.map(item => item.total);
+
+                var ctx = document.getElementById("reservationChart").getContext("2d");
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Reservaciones por día',
+                            data: totals,
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            fill: true,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            tooltip: {
+                                callbacks: {
+                                    label: tooltipItem => tooltipItem.raw + " reservaciones"
+                                }
+                            }
+                        },
+                        scales: {
+                            x: { title: { display: true, text: 'Fecha' } },
+                            y: { title: { display: true, text: 'Número de reservaciones' } }
+                        }
+                    }
+                });
+
+                $('#view-reservations-chart').removeClass('d-none');
+            } else {
+                alertify.error("Error al obtener los datos de reservaciones.");
+            }
+        },
+        error: function () {
+            alertify.error("Error de conexión al servidor.");
+        }
+    });
+
+
+
+    document.getElementById('mobile-toggle').addEventListener('click', function () {
+        document.querySelector('.sidebar').classList.toggle('show');
     });
 });
-
-
-document.getElementById('mobile-toggle').addEventListener('click', function () {
-    document.querySelector('.sidebar').classList.toggle('show');
-});
-
-
-
-
-
-

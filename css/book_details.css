@@ -1,89 +1,3 @@
-/* Contenedor del detalle del libro */
-#bookDetailsContainer {
-    max-width: 900px;
-    margin: 40px auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-}
-
-/* Wrapper para layout flex */
-.book-detail-wrapper {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-    flex-wrap: wrap;
-}
-
-/* Imagen portada del libro */
-.book-cover {
-    flex: 1 1 250px;
-    max-width: 250px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* Info textual del libro */
-.book-info {
-    flex: 2 1 400px;
-}
-
-.book-info h5 {
-    font-weight: 700;
-    font-size: 1.8rem;
-    color: #0069A3;
-    margin-bottom: 15px;
-}
-
-.book-info p {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 12px;
-    line-height: 1.5;
-}
-
-/* Botón principal */
-.btn-primary {
-    background-color: #0069A3;
-    border-color: #0069A3;
-    padding: 10px 25px;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: #005080;
-    border-color: #005080;
-}
-
-/* Estado del stock */
-.stock-status {
-    font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.stock-available {
-    color: green;
-}
-
-.stock-unavailable {
-    color: red;
-}
-
-/* Reset y estilos base */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #f8f9fa;
-}
-
-/* Navbar y botones */
 .back-color {
     background-color: #0069A3;
 }
@@ -108,33 +22,6 @@ header {
     color: #0069A3;
 }
 
-/* Responsive para móvil */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .d-flex {
-        width: 100%;
-    }
-
-    .btn-login, .btn-register {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    /* Responsive para el detalle del libro */
-    .book-detail-wrapper {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .book-cover, .book-info {
-        max-width: 100%;
-        flex: 1 1 100%;
-    }
-}
 
 /* Logos y textos generales */
 .books {
@@ -143,4 +30,235 @@ header {
 
 .logo {
     width: 50px;
+}
+
+
+
+
+/* Estructura principal - Pantalla completa */
+.full-screen-book {
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Contenedor de la portada - Más grande */
+.book-cover-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+  padding: 0;
+  position: sticky;
+  top: 0;
+}
+
+/* Imagen del libro - Tamaño máximo */
+.book-cover-img {
+  height: 95vh;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.book-cover-img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenedor de detalles */
+.book-details-container {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 4rem;
+  background-color: #fff;
+}
+
+/* Título del libro */
+.book-title {
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  line-height: 1.2;
+}
+
+/* Metadatos del libro */
+.book-meta {
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  color: #495057;
+}
+
+.book-meta p {
+  margin-bottom: 1rem;
+}
+
+.book-meta strong {
+  color: #3498db;
+  min-width: 150px;
+  display: inline-block;
+}
+
+/* Descripción del libro */
+.book-description {
+  font-size: 1.2rem;
+  line-height: 1.9;
+  text-align: justify;
+  color: #495057;
+  margin-top: 2.5rem;
+}
+
+.book-description h5 {
+  color: #3498db;
+  margin-bottom: 1.8rem;
+  font-size: 1.5rem;
+}
+
+/* Botones de acción */
+.action-buttons {
+  margin-top: 4rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Estado de disponibilidad */
+.availability-badge {
+  font-size: 1.1rem;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  border-radius: 50px;
+}
+
+/* Barra de scroll personalizada */
+.book-details-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.book-details-container::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.book-details-container::-webkit-scrollbar-thumb {
+  background-color: #3498db;
+  border-radius: 10px;
+}
+
+/* Efectos de carga */
+.loading-placeholder {
+  animation: pulse 1.5s infinite;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 1199px) {
+  .book-title {
+    font-size: 2.5rem;
+  }
+  
+  .book-cover-img {
+    height: 90vh;
+  }
+}
+
+@media (max-width: 991px) {
+  .book-cover-container {
+    height: 60vh;
+    position: relative;
+  }
+  
+  .book-details-container {
+    height: auto;
+    padding: 3rem;
+  }
+  
+  .book-cover-img {
+    height: 55vh;
+  }
+  
+  .book-title {
+    font-size: 2.2rem;
+  }
+  
+  .book-meta {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .book-cover-container {
+    height: 50vh;
+  }
+  
+  .book-cover-img {
+    height: 45vh;
+  }
+  
+  .book-title {
+    font-size: 2rem;
+  }
+  
+  .action-buttons {
+    margin-top: 3rem;
+    gap: 1.5rem;
+  }
+  
+  .btn-lg {
+    padding: 0.9rem 1.8rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .book-details-container {
+    padding: 2rem;
+  }
+  
+  .book-cover-container {
+    height: 45vh;
+  }
+  
+  .book-cover-img {
+    height: 40vh;
+  }
+  
+  .book-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .book-meta {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .book-description {
+    font-size: 1.1rem;
+  }
+  
+  .action-buttons {
+    margin-top: 2.5rem;
+    gap: 1rem;
+  }
 }

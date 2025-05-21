@@ -92,16 +92,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 </a>
             </div>
 
-            <div class="profile-section mt-auto p-1">
-                <div class="d-flex flex-wrap align-items-center">
-                    <img src="https://randomuser.me/api/portraits/women/70.jpg" style="height:60px"
-                        class="rounded-circle" alt="Profile">
-                    <div class="ms-3 profile-info">
-                        <h6 class="text-white mb-0"><?php echo htmlspecialchars($nombre); ?></h6>
-                        <small class="text-muted">Admin</small>
-                    </div>
-                </div>
-            </div>
+
         </nav>
 
 
@@ -111,37 +102,24 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <img src="../assets/libreria-admin.jpg" class="background-img" alt="Fondo">
 
 
-            <div class="container-fluid text-center" id="welcome-section">
-                    <div id="view-1-chart" class="view-section d-none">
-                        <h2>Estadísticas de Accesos</h2>
-                        <p class="text-muted">Cantidad de accesos de usuarios por fecha</p>
-                        <canvas id="accessChart" width="400" height="200"></canvas>
-                    </div>
-                </div>
-                <div id="view-2" class="view-section d-none">
-                    <h2>Estadísticas rápidas</h2>
-                    <p class="text-muted">Consulta el resumen de libros y usuarios activos.</p>
-                </div>
-                <div id="view-3" class="view-section d-none">
-                    <h2>Configuración rápida</h2>
-                    <p class="text-muted">Personaliza tu experiencia de administrador.</p>
-                </div>
-                <div id="view-4" class="view-section d-none">
-                    <h2>Configuración </h2>
-                    <p class="text-muted">Personaliza tu experiencia de administrador.</p>
-                </div>
-                <div id="view-5" class="view-section d-none">
-                    <h2> rápida</h2>
-                    <p class="text-muted">Personaliza tu experiencia de administrador.</p>
-                </div>
 
-
-                <button id="next-view" class="btn btn-light mt-4">
-                    <i class="fa fa-arrow-right"></i>
-                </button>
+            <div id="view-1-chart" class="view-section d-none">
+                <h2>Estadísticas de accesos</h2>
+                <p class="text-muted">Cantidad de accesos por fecha</p>
+                <canvas id="accessChart" width="400" height="200"></canvas>
             </div>
 
+            <div id="view-reservations-chart" class="view-section d-none">
+                <h2>Estadísticas de reservaciones</h2>
+                <p class="text-muted">Cantidad de reservaciones por fecha</p>
+                <canvas id="reservationChart" width="400" height="200"></canvas>
+            </div>
+
+        </main>
+
     </div>
+
+
 
 
     <!-- Optional JavaScript; choose one of the two! -->

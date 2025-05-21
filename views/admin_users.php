@@ -92,16 +92,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </a>
         </div>
 
-        <div class="profile-section mt-auto p-1">
-            <div class="d-flex align-items-center">
-                <img src="https://randomuser.me/api/portraits/women/70.jpg" style="height:60px"
-                     class="rounded-circle" alt="Profile">
-                <div class="ms-3 profile-info">
-                    <h6 class="text-white mb-0"><?php echo htmlspecialchars($nombre); ?></h6>
-                    <small class="text-muted">Admin</small>
-                </div>
-            </div>
-        </div>
+
     </nav>
 
     <main class="main-content">

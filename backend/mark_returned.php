@@ -13,7 +13,7 @@ try {
     $db = new DbConfig();
     $conn = $db->getConnection();
 
-    // Obtener ID del libro
+ 
     $stmt = $conn->prepare("SELECT book_id FROM reservations WHERE id = ?");
     $stmt->execute([$reserva_id]);
     $reserva = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -25,11 +25,9 @@ try {
 
     $book_id = $reserva['book_id'];
 
-    // Eliminar la reserva en vez de actualizar el estado
     $stmt = $conn->prepare("DELETE FROM reservations WHERE id = ?");
     $stmt->execute([$reserva_id]);
 
-    // Aumentar stock
     $stmt = $conn->prepare("UPDATE books SET stock = stock + 1 WHERE id = ?");
     $stmt->execute([$book_id]);
 

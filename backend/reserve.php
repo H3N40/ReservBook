@@ -20,7 +20,7 @@ try {
     $dbConfig = new DbConfig();
     $conn = $dbConfig->getConnection();
 
-    // 🔐 Asegurar que solo tenga una reserva
+   
     $stmt = $conn->prepare("SELECT id FROM reservations WHERE user_id = ? AND status != 'returned'");
     $stmt->execute([$user_id]);
     $existingReservation = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ try {
         exit;
     }
 
-    // 📦 Verificar stock
+   
     $stmt = $conn->prepare("SELECT stock FROM books WHERE id = ?");
     $stmt->execute([$book_id]);
     $book = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -48,11 +48,11 @@ try {
         exit;
     }
 
-    // ✅ Insertar reserva
+
     $stmt = $conn->prepare("INSERT INTO reservations (user_id, book_id, reserved_at) VALUES (?, ?, NOW())");
     $stmt->execute([$user_id, $book_id]);
 
-    // ➖ Reducir stock
+
     $stmt = $conn->prepare("UPDATE books SET stock = stock - 1 WHERE id = ?");
     $stmt->execute([$book_id]);
 

@@ -13,7 +13,6 @@ try {
     $db = new DbConfig();
     $conn = $db->getConnection();
 
-    // Actualizar estado a 'borrowed'
     $stmt = $conn->prepare("UPDATE reservations SET status = 'borrowed' WHERE id = ?");
     $stmt->execute([$reserva_id]);
 
