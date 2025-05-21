@@ -1,7 +1,6 @@
 <?php
 session_start();
 header('Content-Type: application/json');
-
 require_once './config.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -21,7 +20,20 @@ try {
     $dbConfig = new DbConfig();
     $conn = $dbConfig->getConnection();
 
-    // Verificar stock del libro
+    // 🔐 Asegurar que solo tenga una reserva
+    $stmt = $conn->prepare("SELECT id FROM reservations WHERE user_id = ?");
+    $stmt->execute([$user_id]);
+    $existingReservation = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($existingReservation) {
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Ya has reservado un libro. Devuelve el que tienes y reserva otro libro.'
+        ]);
+        exit;
+    }
+
+    // 📦 Verificar stock
     $stmt = $conn->prepare("SELECT stock FROM books WHERE id = ?");
     $stmt->execute([$book_id]);
     $book = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -36,11 +48,11 @@ try {
         exit;
     }
 
-    // Insertar reserva
+    // ✅ Insertar reserva
     $stmt = $conn->prepare("INSERT INTO reservations (user_id, book_id, reserved_at) VALUES (?, ?, NOW())");
     $stmt->execute([$user_id, $book_id]);
 
-    // Actualizar stock
+    // ➖ Reducir stock
     $stmt = $conn->prepare("UPDATE books SET stock = stock - 1 WHERE id = ?");
     $stmt->execute([$book_id]);
 

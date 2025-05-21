@@ -80,7 +80,7 @@ function loginUser(username, password) {
     $.ajax({
         url: "../backend/login.php",
         method: "POST",
-        data: { username: username, password: password },
+        data: {username: username, password: password},
         dataType: "json",
         success: function (response) {
             if (response.status === "success") {
@@ -338,7 +338,7 @@ $(document).ready(function () {
                                         <div class="card-body">
                                             <h5 class="card-title">${books[i].title}</h5>
                                             <p class="card-text">${books[i].author}</p>
-                                            <a href="book_details.php?id=${books[i].id}" class="btn btn-primary">Ver Detalles</a>
+                                            <a href="./views/login.html" class="btn btn-primary">Ver Detalles</a>
                                         </div>
                                     </div>
                                 </div>
@@ -370,7 +370,7 @@ $(document).ready(function () {
         $.ajax({
             url: "../backend/get_book_by_id.php",
             method: "POST",
-            data: { id: id },
+            data: {id: id},
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -403,7 +403,7 @@ function deleteBook(id) {
         $.ajax({
             url: "../backend/delete_book.php",
             method: "POST",
-            data: { id: id },
+            data: {id: id},
             dataType: "json",
             success: function (response) {
                 console.log(response);
@@ -428,8 +428,6 @@ function deleteBook(id) {
 //////////////////////////////////////////////          BOOKS DETAILS / INICIO     //////////////////////////////////////////////
 
 
-
-
 $(document).ready(function () {
     function loadBookDetails() {
         const params = new URLSearchParams(window.location.search);
@@ -443,7 +441,7 @@ $(document).ready(function () {
         $.ajax({
             url: "../backend/get_book_by_id.php",
             method: "POST",
-            data: { id: bookId },
+            data: {id: bookId},
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -491,18 +489,20 @@ $(document).ready(function () {
         $.ajax({
             url: '../backend/reserve.php',
             method: 'POST',
-            data: { book_id: bookId },
+            data: {book_id: bookId},
             dataType: 'json',
-            success: function () {
-                    alertify.success('¡Libro reservado correctamente!');
-
+            success: function (response) {
+                if (response.status === 'success') {
+                    alertify.success(response.message);  // Usar mensaje real del backend
+                } else {
+                    alertify.error(response.message);    // Mostrar el mensaje de error
+                }
             },
             error: function () {
                 alertify.error('Error en la solicitud de reserva.');
             }
         });
     });
-
 
 
     loadBookDetails();
@@ -549,7 +549,6 @@ function loadReservations() {
 }
 
 loadReservations();
-
 
 
 //////////////////////////////////////////////          BOOKS DETAILS / FIN         //////////////////////////////////////////////
@@ -686,7 +685,7 @@ $(document).ready(function () {
         $.ajax({
             url: "../backend/get_user_by_id.php",
             method: "POST",
-            data: { id: userId },
+            data: {id: userId},
             dataType: "json",
             success: function (response) {
                 if (response.status === "success") {
@@ -713,7 +712,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "../backend/delete_users.php",
                 method: "POST",
-                data: { id: id },
+                data: {id: id},
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -835,7 +834,7 @@ $(document).ready(function () {
                     }
                 });
 
-   
+
                 $('#view-1-chart').removeClass('d-none');
             } else {
                 alertify.error("Error al obtener los datos de acceso.");
