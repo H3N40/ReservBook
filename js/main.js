@@ -482,7 +482,6 @@ $(document).ready(function () {
         });
     }
 
-    // Fuera de loadBookDetails, pero dentro de ready
     $(document).on('click', '#reserveBookBtn', function () {
         const bookId = $(this).data('book-id');
 
@@ -507,7 +506,13 @@ $(document).ready(function () {
 
     loadBookDetails();
 });
+//////////////////////////////////////////////          BOOKS DETAILS / FIN         //////////////////////////////////////////////
 
+
+
+
+
+//////////////////////////////////////////////          MUESTRA LA TABLA DE LIBROS RESERVADOS / INICIO         //////////////////////////////////////////////
 function loadReservations() {
     $.ajax({
         url: '../backend/get_reservations.php',
@@ -575,8 +580,6 @@ $(document).on('click', '.markBorrowedBtn', function () {
 });
 
 // Botón: Cancelar reserva
-// Botón: Cancelar reserva
-$// Botón: Cancelar reserva
 $(document).on('click', '.cancelReservationBtn', function () {
     const reservaId = $(this).data('id');
 
@@ -611,11 +614,95 @@ $(document).on('click', '.cancelReservationBtn', function () {
 });
 
 
+//////////////////////////////////////////////          MUESTRA LA TABLA DE LIBROS RESERVADOS / FIN         //////////////////////////////////////////////
 
 
 
 
-//////////////////////////////////////////////          BOOKS DETAILS / FIN         //////////////////////////////////////////////
+
+
+
+
+
+//////////////////////////////////////////////          CARGA LIBROS PRESTADOS EN PANEL ADMIN / INICIO         //////////////////////////////////////////////
+
+function loadBorrowedBooks() {
+    $.ajax({
+        url: '../backend/get_borrowed_books.php',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                let html = `
+                    <h3 class="mt-4">Libros prestados</h3>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Libro</th>
+                                <th>Nombre del usuario</th>
+                                <th>Teléfono</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                response.data.forEach(row => {
+                    html += `
+                        <tr>
+                            <td>${row.book_title}</td>
+                            <td>${row.full_name}</td>
+                            <td>${row.phone}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm markReturnedBtn" data-id="${row.id}">
+                                    Marcar como devuelto
+                                </button>
+                            </td>
+                        </tr>`;
+                });
+
+                html += `</tbody></table>`;
+                $('#borrowedBooksContainer').html(html);
+            } else {
+                $('#borrowedBooksContainer').html(`<div class="alert alert-danger">${response.message}</div>`);
+            }
+        },
+        error: function() {
+            $('#borrowedBooksContainer').html(`<div class="alert alert-danger">Error al cargar libros prestados</div>`);
+        }
+    });
+}
+
+loadBorrowedBooks();
+
+// Evento para marcar como devuelto
+$(document).on('click', '.markReturnedBtn', function () {
+    const reservaId = $(this).data('id');
+
+    $.ajax({
+        url: '../backend/mark_returned.php',
+        method: 'POST',
+        data: { reserva_id: reservaId },
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                alertify.success(response.message);
+                loadBorrowedBooks();
+            } else {
+                alertify.error(response.message);
+            }
+        },
+        error: function() {
+            alertify.error('Error al marcar como devuelto');
+        }
+    });
+});
+
+
+//////////////////////////////////////////////          CARGA LIBROS PRESTADOS EN PANEL ADMIN / FIN         //////////////////////////////////////////////
+
+
+
+
 
 //////////////////////////////////////////////          ADMIN USER / INICIO          //////////////////////////////////////////////
 ///////                                               AÑADIR,EDITAR Y ELIMINAR                                              ///////

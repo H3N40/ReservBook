@@ -110,6 +110,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <main class="main-content">
         <img src="../assets/libreria-admin.jpg" class="background-img" alt="Fondo">
 
+        <div id="borrowedBooksContainer" class="mt-4"></div>
 
 
 </div>
