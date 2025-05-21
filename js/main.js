@@ -325,8 +325,8 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.status === "success") {
                         var books = response.data;
-                        var booksContainerr = $("#booksIndexContainer");
-                        booksContainerr.empty();
+                        var booksContainer = $("#booksIndexContainer");
+                        booksContainer.empty();
 
                         if (books.length > 0) {
                             var row = $('<div class="row"></div>');
@@ -344,9 +344,9 @@ $(document).ready(function () {
                                 </div>
                             `);
                             }
-                            booksContainerr.append(row);
+                            booksContainer.append(row);
                         } else {
-                            booksContainerr.html('<div class="alert alert-info">No hay libros disponibles.</div>');
+                            booksContainer.html('<div class="alert alert-info">No hay libros disponibles.</div>');
                         }
                     } else {
                         console.error("Error al obtener los libros:", response.message);
@@ -523,16 +523,21 @@ function loadReservations() {
                                 <th>Libro</th>
                                 <th>Usuario</th>
                                 <th>Fecha de reserva</th>
+                                <th>Acciones</th> <!-- Nueva columna para botones -->
                             </tr>
                         </thead>
                         <tbody>`;
 
                 response.data.forEach(reservation => {
                     html += `
-                        <tr>
+                        <tr>    
                             <td>${reservation.book_title}</td>
                             <td>${reservation.user_name}</td>
                             <td>${reservation.reserved_at}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm markBorrowedBtn" data-id="${reservation.id}">Marcar como prestado</button>
+                                <button class="btn btn-danger btn-sm cancelReservationBtn" data-id="${reservation.id}">Cancelar reserva</button>
+                            </td>
                         </tr>`;
                 });
 
@@ -549,6 +554,65 @@ function loadReservations() {
 }
 
 loadReservations();
+
+$(document).on('click', '.markBorrowedBtn', function () {
+    const reservaId = $(this).data('id');
+
+    $.ajax({
+        url: '../backend/mark_borrowed.php',
+        method: 'POST',
+        data: {reserva_id: reservaId},
+        dataType: 'json',
+        success: function (response) {
+            if (response.status === 'success') {
+                alertify.success(response.message);
+                loadReservations();
+            } else {
+                alertify.error(response.message);
+            }
+        }
+    });
+});
+
+// Botón: Cancelar reserva
+// Botón: Cancelar reserva
+$// Botón: Cancelar reserva
+$(document).on('click', '.cancelReservationBtn', function () {
+    const reservaId = $(this).data('id');
+
+    alertify.confirm(
+        'Cancelar reserva',
+        '¿Estás seguro de que deseas cancelar esta reserva?',
+        function () {
+            // Si el usuario confirma
+            $.ajax({
+                url: '../backend/cancel_reservation.php',
+                method: 'POST',
+                data: {reserva_id: reservaId},
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 'success') {
+                        alertify.success(response.message);
+                        loadReservations();
+                    } else {
+                        alertify.error(response.message);
+                    }
+                },
+                error: function () {
+                    alertify.error('Error al cancelar la reserva');
+                }
+            });
+        },
+        function () {
+            // Si el usuario cancela
+            alertify.message('Cancelación de reserva abortada');
+        }
+    );
+});
+
+
+
+
 
 
 //////////////////////////////////////////////          BOOKS DETAILS / FIN         //////////////////////////////////////////////

@@ -34,7 +34,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/add_books.css">
+    <link rel="stylesheet" href="../css/view_admin.css">
     <title>ReservBook</title>
 </head>
 
@@ -44,8 +44,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
 
-<div class="d-flex">
-    <nav class="sidebar d-flex flex-column flex-shrink-0 position-fixed">
+<div class="d-flex flex-wrap">
+    <nav class="sidebar d-flex flex-wrap flex-column flex-shrink-0 position-fixed">
         <button class="toggle-btn">
             <i class="fas fa-chevron-left"></i>
         </button>
@@ -93,7 +93,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         </div>
 
         <div class="profile-section mt-auto p-1">
-            <div class="d-flex align-items-center">
+            <div class="d-flex flex-wrap align-items-center">
                 <img src="https://randomuser.me/api/portraits/women/70.jpg" style="height:60px"
                      class="rounded-circle" alt="Profile">
                 <div class="ms-3 profile-info">
@@ -104,18 +104,15 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         </div>
     </nav>
 
+
+
+
     <main class="main-content">
         <img src="../assets/libreria-admin.jpg" class="background-img" alt="Fondo">
 
 
-        <div class="container mt-4" id="adminReservationsContainer">
-            <!-- Aquí se mostrarán las reservas -->
-        </div>
 
-
-        </div>
 </div>
-</main>
 
 </div>
 
@@ -132,12 +129,12 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
 <script src="../js/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../js/main.js"></script>
-</body>
 
 </body>
 

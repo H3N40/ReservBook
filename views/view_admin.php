@@ -82,6 +82,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <i class="fas fa-box me-3"></i>
                     <span class="hide-on-collapse">Gestionar reservas </span>
                 </a>
+                <a href="./borrowed_books.php" class="sidebar-link text-decoration-none p-3">
+                    <i class="fas fa-box me-3"></i>
+                    <span class="hide-on-collapse">Libros prestados </span>
+                </a>
                 <a href="home.php" class="sidebar-link text-decoration-none p-3">
                     <i class="fas fa-home me-3"></i>
                     <span class="hide-on-collapse">Home</span>
