@@ -319,7 +319,7 @@ $(document).ready(function () {
 
         function loadBooksForIndex() {
             $.ajax({
-                url: "../backend/get_books.php",
+                url: "backend/get_books.php",
                 method: "GET",
                 dataType: "json",
                 success: function (response) {
@@ -464,10 +464,10 @@ $(document).ready(function () {
                                     <p><strong>Descripción:</strong> ${book.description}</p>
                                     <p><strong>Estado:</strong> ${book.stock > 0 ? "Disponible" : "Agotado"}</p>
                                     <a href="../views/home.php" class="btn btn-secondary">Volver</a>
-                                    ${book.stock > 0 
-                                        ? `<a href="../reserve.php?id=${book.id}" class="btn btn-primary">Reservar</a>` 
-                                        : ""}
-                                </div>
+                                    ${book.stock > 0
+                        ? `<button class="btn btn-primary" id="reserveBookBtn" data-book-id="${book.id}">Reservar</button>`
+                        : ""}
+                                </div>  
                             </div>
                         </div>
                     </div>
@@ -484,9 +484,71 @@ $(document).ready(function () {
         });
     }
 
+    // Fuera de loadBookDetails, pero dentro de ready
+    $(document).on('click', '#reserveBookBtn', function () {
+        const bookId = $(this).data('book-id');
+
+        $.ajax({
+            url: '../backend/reserve.php',
+            method: 'POST',
+            data: { book_id: bookId },
+            dataType: 'json',
+            success: function () {
+                    alertify.success('¡Libro reservado correctamente!');
+
+            },
+            error: function () {
+                alertify.error('Error en la solicitud de reserva.');
+            }
+        });
+    });
+
+
+
     loadBookDetails();
 });
 
+function loadReservations() {
+    $.ajax({
+        url: '../backend/get_reservations.php',
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status === 'success') {
+                let html = `
+                    <h3 class="mt-4">Reservas realizadas</h3>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Libro</th>
+                                <th>Usuario</th>
+                                <th>Fecha de reserva</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                response.data.forEach(reservation => {
+                    html += `
+                        <tr>
+                            <td>${reservation.book_title}</td>
+                            <td>${reservation.user_name}</td>
+                            <td>${reservation.reserved_at}</td>
+                        </tr>`;
+                });
+
+                html += `</tbody></table>`;
+                $('#adminReservationsContainer').html(html);
+            } else {
+                $('#adminReservationsContainer').html(`<div class="alert alert-danger">${response.message}</div>`);
+            }
+        },
+        error: function () {
+            $('#adminReservationsContainer').html(`<div class="alert alert-danger">Error al cargar las reservas.</div>`);
+        }
+    });
+}
+
+loadReservations();
 
 
 

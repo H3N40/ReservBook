@@ -34,7 +34,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/admin_books.css">
+    <link rel="stylesheet" href="../css/add_books.css">
     <title>ReservBook</title>
 </head>
 
@@ -103,80 +103,16 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <main class="main-content">
         <img src="../assets/libreria-admin.jpg" class="background-img" alt="Fondo">
 
-        <div class="container">
-            <div class="header">
-                <h1>SELECCIONA EL LIBRO</h1>
-            </div>
 
-            <div id="booksContainer">
-                <!-- Aquí se cargaran los libros dinámicamente -->
-            </div>
+        <div class="container mt-4" id="adminReservationsContainer">
+            <!-- Aquí se mostrarán las reservas -->
+        </div>
+
 
         </div>
 </div>
-
-
 </main>
 
-</div>
-
-
-
-<!-- MODAL PARA EDITAR LIBRO -->
-<div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <form id="editBookForm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editBookModalLabel">Editar Libro</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="editBookId" name="id" />
-
-          <div class="mb-3">
-            <label for="editTitle" class="form-label">Título</label>
-            <input type="text" class="form-control" id="editTitle" name="title" required />
-          </div>
-
-          <div class="mb-3">
-            <label for="editAuthor" class="form-label">Autor</label>
-            <input type="text" class="form-control" id="editAuthor" name="author" required />
-          </div>
-
-          <div class="mb-3">
-            <label for="editPublisher" class="form-label">Editorial</label>
-            <input type="text" class="form-control" id="editPublisher" name="publisher" />
-          </div>
-
-          <div class="mb-3">
-            <label for="editYear" class="form-label">Año de Publicación</label>
-            <input type="number" class="form-control" id="editYear" name="publication_year" min="0" max="2100" />
-          </div>
-
-          <div class="mb-3">
-            <label for="editStock" class="form-label">Stock</label>
-            <input type="number" class="form-control" id="editStock" name="stock" min="0" />
-          </div>
-
-          <div class="mb-3">
-            <label for="editCoverImage" class="form-label">URL de Portada</label>
-            <input type="url" class="form-control" id="editCoverImage" name="cover_image" />
-          </div>
-
-          <div class="mb-3">
-            <label for="editDescription" class="form-label">Descripción</label>
-            <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        </div>
-      </div>
-    </form>
-  </div>
 </div>
 
 

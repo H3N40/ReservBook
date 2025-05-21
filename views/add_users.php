@@ -61,6 +61,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <i class="fas fa-box me-3"></i>
                     <span class="hide-on-collapse">Agregar usuarios</span>
                 </a>
+                <a href="./admin_reservations.php" class="sidebar-link text-decoration-none p-3">
+                    <i class="fas fa-box me-3"></i>
+                    <span class="hide-on-collapse">Gestionar reservas </span>
+                </a>
                 <a href="home.php" class="sidebar-link text-decoration-none p-3">
                     <i class="fas fa-home me-3"></i>
                     <span class="hide-on-collapse">Home</span>
@@ -71,7 +75,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <img src="https://randomuser.me/api/portraits/women/70.jpg" style="height:60px"
                         class="rounded-circle" alt="Profile">
                     <div class="ms-3 profile-info">
-                        <h6 class="text-white mb-0">Alex Morgan</h6>
+                        <h6 class="text-white mb-0"><?php echo htmlspecialchars($nombre); ?></h6>
                         <small class="text-muted">Admin</small>
                     </div>
                 </div>
