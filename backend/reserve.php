@@ -21,7 +21,7 @@ try {
     $conn = $dbConfig->getConnection();
 
     // 🔐 Asegurar que solo tenga una reserva
-    $stmt = $conn->prepare("SELECT id FROM reservations WHERE user_id = ?");
+    $stmt = $conn->prepare("SELECT id FROM reservations WHERE user_id = ? AND status != 'returned'");
     $stmt->execute([$user_id]);
     $existingReservation = $stmt->fetch(PDO::FETCH_ASSOC);
 

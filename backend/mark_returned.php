@@ -25,15 +25,15 @@ try {
 
     $book_id = $reserva['book_id'];
 
-    // Marcar como devuelto
-    $stmt = $conn->prepare("UPDATE reservations SET status = 'returned' WHERE id = ?");
+    // Eliminar la reserva en vez de actualizar el estado
+    $stmt = $conn->prepare("DELETE FROM reservations WHERE id = ?");
     $stmt->execute([$reserva_id]);
 
     // Aumentar stock
     $stmt = $conn->prepare("UPDATE books SET stock = stock + 1 WHERE id = ?");
     $stmt->execute([$book_id]);
 
-    echo json_encode(['status' => 'success', 'message' => 'Libro marcado como devuelto']);
+    echo json_encode(['status' => 'success', 'message' => 'Reserva eliminada y libro marcado como devuelto']);
 } catch (PDOException $e) {
     echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 }

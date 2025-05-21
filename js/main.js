@@ -485,23 +485,34 @@ $(document).ready(function () {
     $(document).on('click', '#reserveBookBtn', function () {
         const bookId = $(this).data('book-id');
 
-        $.ajax({
-            url: '../backend/reserve.php',
-            method: 'POST',
-            data: {book_id: bookId},
-            dataType: 'json',
-            success: function (response) {
-                if (response.status === 'success') {
-                    alertify.success(response.message);  // Usar mensaje real del backend
-                } else {
-                    alertify.error(response.message);    // Mostrar el mensaje de error
-                }
+        alertify.confirm('Confirmar reserva', '¿Estás seguro de que deseas reservar este libro?',
+            function () {
+                // Usuario confirmó
+                $.ajax({
+                    url: '../backend/reserve.php',
+                    method: 'POST',
+                    data: {book_id: bookId},
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            alertify.success(response.message);
+                        } else {
+                            alertify.error(response.message);
+                        }
+                    },
+                    error: function () {
+                        alertify.error('Error en la solicitud de reserva.');
+                    }
+                });
             },
-            error: function () {
-                alertify.error('Error en la solicitud de reserva.');
+            function () {
+                // Usuario canceló
+                alertify.message('Reserva cancelada');
             }
-        });
+        ).set('labels', {ok: 'Sí, reservar', cancel: 'Cancelar'});
     });
+
+
 
 
     loadBookDetails();
@@ -512,7 +523,7 @@ $(document).ready(function () {
 
 
 
-//////////////////////////////////////////////          MUESTRA LA TABLA DE LIBROS RESERVADOS / INICIO         //////////////////////////////////////////////
+//////////////////////////////////////////////          MUESTRA LA TABLA DE LIBROS RESERVADOS EN EL PANEL ADMIN / INICIO         //////////////////////////////////////////////
 function loadReservations() {
     $.ajax({
         url: '../backend/get_reservations.php',
@@ -614,7 +625,7 @@ $(document).on('click', '.cancelReservationBtn', function () {
 });
 
 
-//////////////////////////////////////////////          MUESTRA LA TABLA DE LIBROS RESERVADOS / FIN         //////////////////////////////////////////////
+//////////////////////////////////////////////          MUESTRA LA TABLA DE LIBROS RESERVADOS EN EL PANEL ADMIN / FIN         //////////////////////////////////////////////
 
 
 
